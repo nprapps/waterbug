@@ -1,0 +1,660 @@
+.comments-container h2,
+.comments-container h5 {
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 24px;
+}
+.comments-container h2 {
+  font-size: 22px;
+}
+.comments-container h3 {
+  font-size: 22px;
+  color: #999999;
+}
+.comments-container p small,
+.comments-container .comment-terms {
+  font-size: 15px;
+  line-height: 1.5;
+}
+.comments-container.comments-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 200;
+  overflow: auto;
+  padding: 15px;
+  max-width: 600px;
+  background: #fff;
+  width: 100%;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -o-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  -webkit-transform: translate(100%, 0);
+  -moz-transform: translate(100%, 0);
+  -ms-transform: translate(100%, 0);
+  -o-transform: translate(100%, 0);
+  transform: translate(100%, 0);
+}
+.comments-container.comments-panel.show {
+  -webkit-transform: translate(0, 0);
+  -moz-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  -o-transform: translate(0, 0);
+  transform: translate(0, 0);
+  -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+}
+@media screen and (min-width: 768px) {
+  .comments-container.comments-panel {
+    width: 50%;
+    padding: 30px;
+  }
+}
+.comments-container.comments-panel .comments-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  width: 36px;
+  height: 36px;
+  background: #999999;
+  line-height: 36px;
+  text-align: center;
+}
+.comments-container.comments-panel .comments-close:after {
+  content: "\00d7";
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  position: relative;
+  top: -3px;
+}
+.touch .comments-container.comments-panel .comments-close {
+  width: 44px;
+  height: 44px;
+  line-height: 44px;
+}
+.touch .comments-container.comments-panel .comments-close:after {
+  font-size: 36px;
+}
+.comments-container.fullpage {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 15px;
+}
+.comments-container.fullpage > .back {
+  color: #999999;
+  font-family: "Gotham SSm", "Gotham SSm", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+@media screen and (min-width: 768px) {
+  .comments-container.fullpage > .back {
+    position: absolute;
+    left: 0;
+    top: 35px;
+    margin-left: 15px;
+  }
+}
+.comments-container.fullpage .npr-logo {
+  width: 60px;
+}
+.comments-container.fullpage > h2 {
+  line-height: 20px;
+}
+.comments-container.fullpage > h1 {
+  font-family: "Gotham SSm", "Gotham SSm", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.comments-container.fullpage > h1 a {
+  color: #333333;
+}
+.modal-content {
+  background-color: #eee;
+  border-radius: 0;
+  -webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+}
+.modal-body {
+  overflow-x: hidden;
+}
+.modal-body a {
+  color: #7a96cc;
+}
+.modal-body a:hover,
+.modal-body a:focus {
+  color: #667ca9;
+}
+.email-friend {
+  border-top: 1px solid #ddd;
+}
+.email-friend h4 {
+  margin: 20px 0 20px 0;
+}
+.email-friend h4 a {
+  font-size: 12px;
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 10px;
+  background-color: #7a96cc;
+  color: #fff;
+}
+.email-friend h4 a:hover,
+.email-friend h4 a:focus {
+  background-color: #bccae5;
+  color: #fff;
+}
+.email-friend h4 b {
+  padding: 0 5px;
+}
+.story-summary h4 {
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: normal;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.story-summary p {
+  margin: 10px 0 20px 0;
+}
+.story-summary .summary-text {
+  margin: 0;
+  font-size: 11px;
+  background-color: #fff;
+  border: 1px solid #e3e3e3;
+  padding: 5px 10px;
+  color: #555;
+  display: block;
+  font-weight: normal;
+}
+@media (min-width: 768px) {
+  .story-summary .summary-text {
+    display: inline-block;
+    font-size: 12px;
+  }
+}
+.story-summary .clippy {
+  text-transform: uppercase;
+  font-size: 12px;
+  display: inline-block;
+  font-weight: bold;
+  margin-top: 5px;
+  padding: 5px;
+  text-decoration: none;
+  background-color: #7a96cc;
+  color: #fff;
+}
+.story-summary .clippy:hover,
+.story-summary .clippy:focus {
+  color: #fff;
+}
+.touch .story-summary .clippy {
+  display: none;
+}
+.disqus-comments {
+  padding-top: 20px;
+  border-top: 1px solid #ddd;
+}
+.disqus-comments h4 {
+  text-transform: uppercase;
+  font-size: 18px;
+  font-weight: normal;
+}
+.share-section {
+  border-top: 1px solid #ddd;
+  padding: 25px 0 5px 0;
+}
+.share-section h4 {
+  text-transform: uppercase;
+  font-size: 18px;
+  margin: 0;
+  font-weight: normal;
+}
+.share-section h5 {
+  font-size: 14px;
+  color: #333;
+  text-transform: uppercase;
+  margin: 30px 0 20px 0;
+  font-weight: bold;
+}
+.share-section ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+.share-story {
+  margin: 10px 0;
+}
+.share-story a {
+  font-size: 12px;
+  display: inline-block;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-decoration: none;
+  padding: 10px;
+  background-color: #7a96cc;
+  color: #fff;
+}
+.share-story a:hover,
+.share-story a:focus {
+  background-color: #bccae5;
+  color: #fff;
+}
+.share-story b {
+  padding: 0 5px;
+}
+.facebook-share {
+  margin: 0;
+}
+.facebook-share .facebook-post {
+  position: relative;
+  margin-top: 20px;
+  padding: 5px;
+  background-color: #fff;
+  border-bottom: 2px solid #ddd;
+}
+@media (min-width: 768px) {
+  .facebook-share .facebook-post {
+    padding: 20px;
+  }
+}
+@media (min-width: 992px) {
+  .facebook-share .facebook-post {
+    max-width: 700px;
+  }
+}
+.facebook-share .facebook-post .facebook-author-avatar {
+  float: left;
+  max-width: 50px;
+  font-size: 10px;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+.facebook-share .facebook-post .facebook-author-avatar img {
+  width: 100%;
+  border: 1px solid #eee;
+  display: block;
+  margin-bottom: 5px;
+}
+.facebook-share .facebook-post .facebook-author-avatar a {
+  color: #999;
+}
+.facebook-share .facebook-post .facebook-author-avatar a:hover,
+.facebook-share .facebook-post .facebook-author-avatar a:focus {
+  color: #555;
+  text-decoration: none;
+}
+.facebook-share .facebook-post .facebook-content {
+  position: relative;
+  margin-left: 70px;
+}
+@media (min-width: 992px) {
+  .facebook-share .facebook-post .facebook-content {
+    margin-left: 90px;
+  }
+}
+.facebook-share .facebook-post .facebook-content .facebook-author-name {
+  font-size: 11px;
+  font-weight: bold;
+  margin: 0;
+}
+@media screen and (min-width: 992px) {
+  .facebook-share .facebook-post .facebook-content .facebook-author-name {
+    font-size: 14px;
+  }
+}
+.facebook-share .facebook-post .facebook-content .facebook-author-name a {
+  color: #666;
+  text-decoration: none;
+}
+.facebook-share .facebook-post .facebook-content .facebook-author-name a:hover,
+.facebook-share .facebook-post .facebook-content .facebook-author-name a:focus {
+  color: #000;
+}
+.facebook-share .facebook-post .facebook-content .facebook-message {
+  font-size: 12px;
+  max-width: 600px;
+}
+@media screen and (min-width: 768px) {
+  .facebook-share .facebook-post .facebook-content .facebook-message {
+    font-size: 14px;
+  }
+}
+.facebook-share .facebook-post .facebook-content .facebook-shared-entity {
+  background-color: #efefef;
+  border: 1px solid #e3e3e3;
+  padding: 10px;
+}
+@media screen and (min-width: 992px) {
+  .facebook-share .facebook-post .facebook-content .facebook-shared-entity {
+    padding: 20px;
+  }
+}
+.facebook-share .facebook-post .facebook-content .facebook-shared-entity p {
+  max-width: 350px;
+  font-size: 12px;
+  color: #444;
+  margin: 0 0 10px 0;
+}
+@media screen and (min-width: 768px) {
+  .facebook-share .facebook-post .facebook-content .facebook-shared-entity p {
+    float: left;
+    padding: 20px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .facebook-share .facebook-post .facebook-content .facebook-shared-entity p {
+    max-width: 500px;
+    font-size: 14px;
+  }
+}
+.facebook-share .facebook-post .facebook-content .facebook-shared-entity img {
+  max-width: 120px;
+}
+@media screen and (min-width: 768px) {
+  .facebook-share .facebook-post .facebook-content .facebook-shared-entity img {
+    float: right;
+  }
+}
+.facebook-share .facebook-post .facebook-meta .facebook-actions {
+  margin: 20px 0 0 0;
+  padding: 0;
+  font-size: 10px;
+  text-transform: uppercase;
+  position: relative;
+}
+@media (min-width: 768px) {
+  .facebook-share .facebook-post .facebook-meta .facebook-actions {
+    font-size: 12px;
+    text-align: right;
+  }
+}
+.facebook-share .facebook-post .facebook-meta .facebook-actions .facebook-view {
+  font-weight: bold;
+  text-decoration: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+@media (min-width: 768px) {
+  .facebook-share .facebook-post .facebook-meta .facebook-actions .facebook-view {
+    position: static;
+  }
+}
+.facebook-share .facebook-post .facebook-meta .facebook-actions span {
+  margin-right: 5px;
+}
+@media (min-width: 768px) {
+  .facebook-share .facebook-post .facebook-meta .facebook-actions span {
+    margin-right: 20px;
+  }
+}
+.featured-tweets .tweet {
+  position: relative;
+  margin-top: 10px;
+  padding: 5px;
+  background-color: #fff;
+  overflow: hidden;
+  border-bottom: 2px solid #ddd;
+}
+@media (min-width: 768px) {
+  .featured-tweets .tweet {
+    margin-top: 20px;
+    padding: 20px;
+  }
+}
+@media (min-width: 992px) {
+  .featured-tweets .tweet {
+    max-width: 700px;
+  }
+}
+.featured-tweets .tweet .follow-author {
+  float: left;
+  max-width: 50px;
+  font-size: 10px;
+  font-weight: bold;
+  margin: 0;
+  text-align: center;
+  text-transform: uppercase;
+}
+@media (min-width: 768px) {
+  .featured-tweets .tweet .follow-author {
+    margin-top: 10px;
+  }
+}
+.featured-tweets .tweet .follow-author a {
+  color: #999;
+  text-decoration: none;
+}
+.featured-tweets .tweet .follow-author a:hover,
+.featured-tweets .tweet .follow-author a:focus {
+  color: #555;
+  text-decoration: none;
+}
+.featured-tweets .tweet .follow-author .tweet-author-avatar {
+  width: 100%;
+  border: 1px solid #eee;
+  display: block;
+  margin-bottom: 5px;
+}
+.featured-tweets .tweet .tweet-content {
+  margin-left: 60px;
+  position: relative;
+}
+@media (min-width: 992px) {
+  .featured-tweets .tweet .tweet-content {
+    margin-left: 70px;
+  }
+}
+@media (min-width: 992px) {
+  .featured-tweets .tweet .tweet-content {
+    margin-left: 90px;
+  }
+}
+.featured-tweets .tweet .tweet-content .tweet-timestamp {
+  font-size: 10px;
+  margin: 0 0 10px 0;
+  line-height: 1;
+}
+@media (min-width: 768px) {
+  .featured-tweets .tweet .tweet-content .tweet-timestamp {
+    position: absolute;
+    top: 5px;
+    right: 0;
+    font-size: 12px;
+    margin: 0;
+  }
+}
+.featured-tweets .tweet .tweet-content .tweet-timestamp a {
+  color: #aaa;
+}
+.featured-tweets .tweet .tweet-content .tweet-author {
+  line-height: 1;
+  margin-bottom: 0;
+}
+@media (min-width: 768px) {
+  .featured-tweets .tweet .tweet-content .tweet-author {
+    padding-top: 5px;
+    margin-bottom: 15px;
+  }
+}
+.featured-tweets .tweet .tweet-content .tweet-author a {
+  color: #666;
+  text-decoration: none;
+}
+.featured-tweets .tweet .tweet-content .tweet-author a:hover,
+.featured-tweets .tweet .tweet-content .tweet-author a:focus {
+  color: #000;
+}
+.featured-tweets .tweet .tweet-content .tweet-author-name {
+  font-size: 11px;
+  font-weight: bold;
+  padding-right: 5px;
+}
+@media (min-width: 992px) {
+  .featured-tweets .tweet .tweet-content .tweet-author-name {
+    font-size: 14px;
+  }
+}
+.featured-tweets .tweet .tweet-content .tweet-author-username {
+  font-size: 10px;
+  margin-bottom: 5px;
+  display: block;
+}
+@media (min-width: 768px) {
+  .featured-tweets .tweet .tweet-content .tweet-author-username {
+    display: inline-block;
+  }
+}
+@media (min-width: 992px) {
+  .featured-tweets .tweet .tweet-content .tweet-author-username {
+    font-size: 11px;
+  }
+}
+.featured-tweets .tweet .tweet-content .tweet-text {
+  font-size: 12px;
+}
+@media screen and (min-width: 768px) {
+  .featured-tweets .tweet .tweet-content .tweet-text {
+    font-size: 14px;
+  }
+}
+.featured-tweets .tweet .tweet-content .tweet-text a {
+  color: #333;
+  font-weight: bold;
+}
+.featured-tweets .tweet .tweet-content .tweet-photo {
+  max-width: 200px;
+  max-height: 200px;
+  overflow: hidden;
+  text-align: right;
+}
+@media screen and (min-width: 768px) {
+  .featured-tweets .tweet .tweet-content .tweet-photo {
+    float: right;
+    margin: 0 0 0 20px;
+    max-width: 150px;
+    max-height: 150px;
+  }
+}
+@media screen and (min-width: 992px) {
+  .featured-tweets .tweet .tweet-content .tweet-photo {
+    margin: 0 0 0 50px;
+  }
+}
+.featured-tweets .tweet .tweet-content .tweet-photo img {
+  width: 100%;
+}
+.featured-tweets .tweet .tweet-meta {
+  text-transform: uppercase;
+  margin: 0;
+}
+@media (min-width: 768px) {
+  .featured-tweets .tweet .tweet-meta {
+    margin: 10px 0 0 70px;
+  }
+}
+@media (min-width: 768px) {
+  .featured-tweets .tweet .tweet-meta {
+    margin-left: 90px;
+  }
+}
+.featured-tweets .tweet .tweet-meta .tweet-actions {
+  position: relative;
+  margin: 0;
+}
+.featured-tweets .tweet .tweet-meta .tweet-actions a {
+  padding-right: 20px;
+  font-size: 10px;
+  text-decoration: none;
+  font-weight: bold;
+}
+@media (min-width: 768px) {
+  .featured-tweets .tweet .tweet-meta .tweet-actions a {
+    font-size: 12px;
+  }
+}
+.featured-tweets .tweet .tweet-meta .tweet-actions .view-on-twitter {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-right: 0;
+}
+@media (min-width: 768px) {
+  .featured-tweets .tweet .tweet-meta .tweet-actions .view-on-twitter {
+    top: 10px;
+  }
+}
+.featured-tweets .tweet .tweet-meta .tweet-actions i {
+  font-size: 18px;
+  margin-right: 10px;
+}
+@media (min-width: 768px) {
+  .featured-tweets .tweet .tweet-meta .tweet-actions i {
+    font-size: 12px;
+    margin-right: 0;
+  }
+}
+.featured-tweets .tweet .tweet-meta .tweet-actions b {
+  display: none;
+}
+@media (min-width: 768px) {
+  .featured-tweets .tweet .tweet-meta .tweet-actions b {
+    display: inline-block;
+  }
+}
+#share-modal {
+  color: #444;
+}
+#share-modal .close {
+  background-color: #111;
+  padding: 5px;
+}
+#share-modal .share-close {
+  float: right;
+  font-size: 14px;
+  line-height: 1;
+  color: #eee;
+  background-color: #000;
+  border: none;
+  text-transform: uppercase;
+  margin: -16px -16px 0 0;
+  padding: 4px 6px 6px 6px;
+}
+@media (min-width: 768px) {
+  #share-modal .share-close {
+    padding: 8px 10px 10px 10px;
+  }
+}
+#share-modal .share-close:hover,
+#share-modal .share-close:focus {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+button#share-modal .share-close {
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+}
+#share-modal .share-close em {
+  font-style: normal;
+  font-size: 10px;
+}
+@media (min-width: 992px) {
+  .modal-lg {
+    width: 700px;
+  }
+}

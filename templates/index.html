@@ -1,0 +1,30 @@
+{% extends '_base.html' %}
+
+{% block header_content %}
+<header>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{ COPY.content.project_name|smarty }}</h1>
+                <h2>{{ COPY.content.lorem_ipsum|smarty }}</h2>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock %}
+
+
+{% block content %}
+<label>Image File:</label>
+<input type="file" id="imageLoader" name="imageLoader"/>
+<div class="canvas">
+    <canvas id="imageCanvas"></canvas>
+</div>
+
+<label>Source: </label>
+<input type="text" id="source" name="source">
+{% endblock %}
+
+
+{% block wide_content %}
+{% endblock %}
