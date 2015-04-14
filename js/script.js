@@ -24,10 +24,14 @@ var renderCanvas = function() {
         var logo = new Image();
 
         logo.onload = function(){
-            ctx.drawImage(logo, canvas.width - 250, canvas.height - 100);
+            ctx.drawImage(logo, canvas.width - (logo.width + 20), canvas.height - (logo.height + 20));
         }
 
-        logo.src = 'img/npr-logo.png'
+        if (canvas.width >= 800) {
+            logo.src = 'img/npr-logo.png';
+        } else if (canvas.width < 800) {
+            logo.src = 'img/npr-logo-100.png';
+        }
 
         ctx.textBaseline = 'bottom';
         ctx.textAlign = 'left';
