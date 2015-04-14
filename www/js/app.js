@@ -7,6 +7,7 @@ var img;
 var $save;
 var $textColor;
 var imageHeight;
+var fixedWidth = 1000;
 
 var handleImage = function(e) {
     var reader = new FileReader();
@@ -30,13 +31,16 @@ var renderCanvas = function() {
 
     img.onload = function(){
         var imageAspect = img.width / img.height;
-        canvas.width = 600;
-        canvas.height = 600 / imageAspect;
-        ctx.drawImage(img, 0, 0, 600, canvas.height);
+        canvas.width = fixedWidth;
+        canvas.height = fixedWidth / imageAspect;
+        ctx.drawImage(img, 0, 0, fixedWidth, canvas.height);
 
         var logo = new Image();
 
         logo.onload = function(){
+            if (textColor === 'white') {
+                ctx.globalAlpha = "0.7";
+            }
             ctx.drawImage(logo, canvas.width - (logo.width + 20), canvas.height - (logo.height + 20));
         }
 
@@ -72,6 +76,7 @@ var onSaveClick = function() {
     /// attribute is set the content pointed to by link will be
     /// pushed as "download" in HTML5 capable browsers
     link.href = canvas.toDataURL();
+    link.target = "_blank";
 
     /// create a "fake" click-event to trigger the download
     if (document.createEvent) {
