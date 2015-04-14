@@ -4,6 +4,7 @@ var imageLoader;
 var ctx;
 var image;
 var $save;
+var $radios;
 
 var handleImage = function(e) {
     var reader = new FileReader();
@@ -16,6 +17,13 @@ var handleImage = function(e) {
 
 var renderCanvas = function() {
     ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    for (var i = 0; i < $radios.length; i++) {
+        if ($radios.eq(i).is(':checked')) {
+            var textColor = $radios.eq(i).val();
+        }
+    }
+
     var img = new Image();
     img.onload = function(){
         canvas.width = img.width;
@@ -28,11 +36,11 @@ var renderCanvas = function() {
             ctx.drawImage(logo, canvas.width - (logo.width + 20), canvas.height - (logo.height + 20));
         }
 
-        logo.src = APP_CONFIG.S3_BASE_URL + '/assets/npr-logo-100.png';
+        logo.src = APP_CONFIG.S3_BASE_URL + '/assets/npr-' + textColor + '.png';
 
         ctx.textBaseline = 'bottom';
         ctx.textAlign = 'left';
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = textColor;
         ctx.font = 'normal 12pt Gotham';
         ctx.fillText($source.val(), 20, canvas.height - 20);
     }
@@ -74,8 +82,10 @@ $(document).ready(function() {
     imageLoader = $('#imageLoader');
     ctx = canvas.getContext('2d');
     $save = $('.save-btn');
+    $radios = $('input[name="textColor"]');
 
     $source.on('keyup', renderCanvas);
     imageLoader.on('change', handleImage);
     $save.on('click', onSaveClick);
+    $radios.on('change', renderCanvas);
 });
