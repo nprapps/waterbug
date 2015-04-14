@@ -42,23 +42,23 @@ var renderCanvas = function() {
                 ctx.globalAlpha = "0.7";
             }
             ctx.drawImage(logo, canvas.width - (logo.width + 20), canvas.height - (logo.height + 20));
+
+            ctx.textBaseline = 'bottom';
+            ctx.textAlign = 'left';
+            ctx.fillStyle = textColor;
+            ctx.font = 'normal 12pt Gotham';
+
+            if (textColor === 'white') {
+                ctx.shadowColor = 'black';
+                ctx.shadowOffsetX = 5;
+                ctx.shadowOffsetY = 5;
+                ctx.shadowBlur = 10;
+            }
+
+            ctx.fillText($source.val(), 20, canvas.height - 20);
         }
 
         logo.src = 'assets/npr-' + textColor + '.png';
-
-        ctx.textBaseline = 'bottom';
-        ctx.textAlign = 'left';
-        ctx.fillStyle = textColor;
-        ctx.font = 'normal 12pt Gotham';
-
-        if (textColor === 'white') {
-            ctx.shadowColor = 'black';
-            ctx.shadowOffsetX = 5;
-            ctx.shadowOffsetY = 5;
-            ctx.shadowBlur = 10;
-        }
-
-        ctx.fillText($source.val(), 20, canvas.height - 20);
     }
 
     img.src = imageFilename || 'assets/test.png';
