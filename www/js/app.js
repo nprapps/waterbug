@@ -36,7 +36,7 @@ var renderCanvas = function() {
             ctx.drawImage(logo, canvas.width - (logo.width + 20), canvas.height - (logo.height + 20));
         }
 
-        logo.src = APP_CONFIG.S3_BASE_URL + '/assets/npr-' + textColor + '.png';
+        logo.src = 'assets/npr-' + textColor + '.png';
 
         ctx.textBaseline = 'bottom';
         ctx.textAlign = 'left';

@@ -19,20 +19,20 @@ NAMES
 """
 # Project name to be used in urls
 # Use dashes, not underscores!
-PROJECT_SLUG = '$NEW_PROJECT_SLUG'
+PROJECT_SLUG = 'watermarker'
 
 # Project name to be used in file paths
-PROJECT_FILENAME = '$NEW_PROJECT_FILENAME'
+PROJECT_FILENAME = 'watermarker'
 
 # The name of the repository containing the source
-REPOSITORY_NAME = '$NEW_REPOSITORY_NAME'
+REPOSITORY_NAME = 'watermarker'
 GITHUB_USERNAME = 'nprapps'
 REPOSITORY_URL = 'git@github.com:%s/%s.git' % (GITHUB_USERNAME, REPOSITORY_NAME)
 REPOSITORY_ALT_URL = None # 'git@bitbucket.org:nprapps/%s.git' % REPOSITORY_NAME'
 
 # Project name used for assets rig
 # Should stay the same, even if PROJECT_SLUG changes
-ASSETS_SLUG = '$NEW_PROJECT_SLUG'
+ASSETS_SLUG = 'watermarker'
 
 """
 DEPLOYMENT
@@ -51,6 +51,8 @@ ASSETS_S3_BUCKET = {
     'bucket_name': 'assets.apps.npr.org',
     'region': 'us-east-1'
 }
+
+FILE_SERVER = 'tools.apps.npr.org'
 
 DEFAULT_MAX_AGE = 20
 

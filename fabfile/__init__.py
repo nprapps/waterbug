@@ -132,49 +132,13 @@ def deploy(remote='origin'):
     """
     require('settings', provided_by=[production, staging])
 
-    if app_config.DEPLOY_TO_SERVERS:
-        require('branch', provided_by=[stable, master, branch])
-
-        if (app_config.DEPLOYMENT_TARGET == 'production' and env.branch != 'stable'):
-            utils.confirm(
-                colored("You are trying to deploy the '%s' branch to production.\nYou should really only deploy a stable branch.\nDo you know what you're doing?" % env.branch, "red")
-            )
-
-        servers.checkout_latest(remote)
-
-        servers.fabcast('text.update')
-        servers.fabcast('assets.sync')
-        servers.fabcast('data.update')
-
-        if app_config.DEPLOY_CRONTAB:
-            servers.install_crontab()
-
-        if app_config.DEPLOY_SERVICES:
-            servers.deploy_confs()
-
     update()
     render.render_all()
 
     # Clear files that should never be deployed
     local('rm -rf www/live-data')
 
-    flat.deploy_folder(
-        'www',
-        app_config.PROJECT_SLUG,
-        headers={
-            'Cache-Control': 'max-age=%i' % app_config.DEFAULT_MAX_AGE
-        },
-        ignore=['www/assets/*', 'www/live-data/*']
-    )
-
-    flat.deploy_folder(
-        'www/assets',
-        '%s/assets' % app_config.PROJECT_SLUG,
-        headers={
-            'Cache-Control': 'max-age=%i' % app_config.ASSETS_MAX_AGE
-        }
-    )
-
+    local('rsync -vr www/ ubuntu@%s:~/www/%s' % (app_config.FILE_SERVER, app_config.PROJECT_SLUG))
 
 """
 Destruction
