@@ -11,7 +11,7 @@ var imageHeight;
 var handleImage = function(e) {
     var reader = new FileReader();
     reader.onload = function(event){
-        image = event.target.result
+        imageFilename = event.target.result
         renderCanvas();
     }
     reader.readAsDataURL(e.target.files[0]);
@@ -46,6 +46,14 @@ var renderCanvas = function() {
         ctx.textAlign = 'left';
         ctx.fillStyle = textColor;
         ctx.font = 'normal 12pt Gotham';
+
+        if (textColor === 'white') {
+            ctx.shadowColor = 'black';
+            ctx.shadowOffsetX = 5;
+            ctx.shadowOffsetY = 5;
+            ctx.shadowBlur = 10;
+        }
+
         ctx.fillText($source.val(), 20, canvas.height - 20);
     }
 
