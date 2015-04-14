@@ -2,10 +2,11 @@ var $source;
 var canvas;
 var imageLoader;
 var ctx;
-var image;
+var imageFilename;
+var img;
 var $save;
 var $textColor;
-var $cropSize;
+var imageHeight;
 
 var handleImage = function(e) {
     var reader = new FileReader();
@@ -25,26 +26,13 @@ var renderCanvas = function() {
         }
     }
 
-    for (var i = 0; i < $cropSize.length; i++) {
-        if ($cropSize.eq(i).is(':checked')) {
-            var cropSize = $cropSize.eq(i).val();
-        }
-    }
-
-    var img = new Image();
+    img = new Image();
 
     img.onload = function(){
         var imageAspect = img.width / img.height;
         canvas.width = 600;
-
-        if (cropSize === 'original') {
-            canvas.height = 600 / imageAspect;
-            imageHeight = canvas.height;
-        } else {
-            canvas.height = 600 / (16/9);
-            imageHeight = 600 / imageAspect;
-        }
-        ctx.drawImage(img,0,0, 600, imageHeight);
+        canvas.height = 600 / imageAspect;
+        ctx.drawImage(img, 0, 0, 600, canvas.height);
 
         var logo = new Image();
 
@@ -61,7 +49,7 @@ var renderCanvas = function() {
         ctx.fillText($source.val(), 20, canvas.height - 20);
     }
 
-    img.src = image;
+    img.src = imageFilename || 'assets/test.png';
 }
 
 var onSaveClick = function() {
@@ -99,11 +87,11 @@ $(document).ready(function() {
     ctx = canvas.getContext('2d');
     $save = $('.save-btn');
     $textColor = $('input[name="textColor"]');
-    $cropSize = $('input[name="cropSize"]');
 
     $source.on('keyup', renderCanvas);
     imageLoader.on('change', handleImage);
     $save.on('click', onSaveClick);
     $textColor.on('change', renderCanvas);
-    $cropSize.on('change', renderCanvas);
+
+    renderCanvas();
 });
