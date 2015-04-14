@@ -27,16 +27,12 @@ var renderCanvas = function() {
             ctx.drawImage(logo, canvas.width - (logo.width + 20), canvas.height - (logo.height + 20));
         }
 
-        if (canvas.width >= 800) {
-            logo.src = 'img/npr-logo.png';
-        } else if (canvas.width < 800) {
-            logo.src = 'img/npr-logo-100.png';
-        }
+        logo.src = 'img/npr-logo-100.png';
 
         ctx.textBaseline = 'bottom';
         ctx.textAlign = 'left';
         ctx.fillStyle = 'white';
-        ctx.font = 'normal 12pt Helvetica Neue';
+        ctx.font = 'normal 12pt Gotham';
         ctx.fillText($source.val(), 20, canvas.height - 20);
     }
 
