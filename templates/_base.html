@@ -51,16 +51,8 @@
 
     <section id="content">
         <div class="container">
-            <div class="row">
-                <div id="main-content" class="col-md-12">
-                    {% block content %}
-                    <h1>{{ project_name }}</h1>
-                    App content goes here.
-
-                    <i class="icon icon-play"></i>
-                    {% endblock content %}
-                </div>
-            </div>
+            {% block content %}
+            {% endblock content %}
             {% block wide_content %}
             {% endblock wide_content %}
         </div>
