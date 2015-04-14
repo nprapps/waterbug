@@ -4,7 +4,8 @@ var imageLoader;
 var ctx;
 var image;
 var $save;
-var $radios;
+var $textColor;
+var $cropSize;
 
 var handleImage = function(e) {
     var reader = new FileReader();
@@ -18,17 +19,32 @@ var handleImage = function(e) {
 var renderCanvas = function() {
     ctx.clearRect(0,0,canvas.width,canvas.height);
 
-    for (var i = 0; i < $radios.length; i++) {
-        if ($radios.eq(i).is(':checked')) {
-            var textColor = $radios.eq(i).val();
+    for (var i = 0; i < $textColor.length; i++) {
+        if ($textColor.eq(i).is(':checked')) {
+            var textColor = $textColor.eq(i).val();
+        }
+    }
+
+    for (var i = 0; i < $cropSize.length; i++) {
+        if ($cropSize.eq(i).is(':checked')) {
+            var cropSize = $cropSize.eq(i).val();
         }
     }
 
     var img = new Image();
+
     img.onload = function(){
-        canvas.width = img.width;
-        canvas.height = img.height;
-        ctx.drawImage(img,0,0);
+        var imageAspect = img.width / img.height;
+        canvas.width = 600;
+
+        if (cropSize === 'original') {
+            canvas.height = 600 / imageAspect;
+            imageHeight = canvas.height;
+        } else {
+            canvas.height = 600 / (16/9);
+            imageHeight = 600 / imageAspect;
+        }
+        ctx.drawImage(img,0,0, 600, imageHeight);
 
         var logo = new Image();
 
@@ -82,10 +98,12 @@ $(document).ready(function() {
     imageLoader = $('#imageLoader');
     ctx = canvas.getContext('2d');
     $save = $('.save-btn');
-    $radios = $('input[name="textColor"]');
+    $textColor = $('input[name="textColor"]');
+    $cropSize = $('input[name="cropSize"]');
 
     $source.on('keyup', renderCanvas);
     imageLoader.on('change', handleImage);
     $save.on('click', onSaveClick);
-    $radios.on('change', renderCanvas);
+    $textColor.on('change', renderCanvas);
+    $cropSize.on('change', renderCanvas);
 });
