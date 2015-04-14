@@ -242,8 +242,34 @@ header {
 
 h1 + #story-meta { margin-top: -11px; }
 
-.canvas {
+.wrapper {
+	display: table;
 	width: 100%;
+	padding: @grid-gutter-width;
+}
+
+.editor,
+.canvas-wrapper {
+	display: table-cell;
+	vertical-align: top;
+}
+
+.editor {
+	padding-left: @grid-gutter-width;
+}
+
+#imageCanvas {
+	.scale(0.64);
+	.transform-origin(top left);
+}
+
+.canvas-cell {
+	width: 640px;
+	overflow: hidden;
+}
+
+.canvas-wrapper {
+	width: 640px;
 }
 
 .comment-button {
