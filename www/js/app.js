@@ -51,27 +51,6 @@ var onDocumentLoad = function(e) {
     renderCanvas();
 }
 
-
-/*
-* Take an image from file input and load it
-*/
-var handleImage = function(e) {
-    var reader = new FileReader();
-    reader.onload = function(e){
-        imageFilename = e.target.result
-        img.src = imageFilename
-    }
-    reader.readAsDataURL(e.target.files[0]);
-}
-
-/*
-* Load the logo based on radio buttons
-*/
-var loadLogo = function() {
-    logo.src = 'assets/npr-' + currentLogoColor + '.svg';
-}
-
-
 /*
 * Draw the image, then the logo, then the text
 */
@@ -149,39 +128,6 @@ var renderCanvas = function() {
 }
 
 /*
-* Download the image on save click
-*/
-var onSaveClick = function() {
-    /// create an "off-screen" anchor tag
-    var link = document.createElement('a'),
-        e;
-
-    /// the key here is to set the download attribute of the a tag
-    link.download = 'download.png';
-
-    /// convert canvas content to data-uri for link. When download
-    /// attribute is set the content pointed to by link will be
-    /// pushed as "download" in HTML5 capable browsers
-    link.href = canvas.toDataURL();
-    link.target = "_blank";
-
-    /// create a "fake" click-event to trigger the download
-    if (document.createEvent) {
-
-        e = document.createEvent("MouseEvents");
-        e.initMouseEvent("click", true, true, window,
-                         0, 0, 0, 0, 0, false, false, false,
-                         false, 0, null);
-
-        link.dispatchEvent(e);
-
-    } else if (link.fireEvent) {
-        link.fireEvent("onclick");
-    }
-}
-
-
-/*
 * Handle dragging the image for crops when applicable
 */
 var onDrag = function(e) {
@@ -218,6 +164,57 @@ var onDrag = function(e) {
             $(document).off('mouseup.drag mousemove.drag');
             update(e);
         });
+}
+
+/*
+* Take an image from file input and load it
+*/
+var handleImage = function(e) {
+    var reader = new FileReader();
+    reader.onload = function(e){
+        imageFilename = e.target.result
+        img.src = imageFilename
+    }
+    reader.readAsDataURL(e.target.files[0]);
+}
+
+/*
+* Load the logo based on radio buttons
+*/
+var loadLogo = function() {
+    logo.src = 'assets/npr-' + currentLogoColor + '.svg';
+}
+
+/*
+* Download the image on save click
+*/
+var onSaveClick = function() {
+    /// create an "off-screen" anchor tag
+    var link = document.createElement('a'),
+        e;
+
+    /// the key here is to set the download attribute of the a tag
+    link.download = 'download.png';
+
+    /// convert canvas content to data-uri for link. When download
+    /// attribute is set the content pointed to by link will be
+    /// pushed as "download" in HTML5 capable browsers
+    link.href = canvas.toDataURL();
+    link.target = "_blank";
+
+    /// create a "fake" click-event to trigger the download
+    if (document.createEvent) {
+
+        e = document.createEvent("MouseEvents");
+        e.initMouseEvent("click", true, true, window,
+                         0, 0, 0, 0, 0, false, false, false,
+                         false, 0, null);
+
+        link.dispatchEvent(e);
+
+    } else if (link.fireEvent) {
+        link.fireEvent("onclick");
+    }
 }
 
 /*
