@@ -119,9 +119,6 @@ var onDrag = function(e) {
         return;
     }
 
-    console.log('image height: ' + scaledImageHeight);
-    console.log('canvas height: ' + canvas.height);
-
     function update(e) {
         if (Math.abs(e.clientY - originY) > 1) {
             dy = dy - (originY - e.clientY) * 0.025;
@@ -139,8 +136,6 @@ var onDrag = function(e) {
             }
 
             renderCanvas();
-
-            console.log(dy);
         }
     }
 
