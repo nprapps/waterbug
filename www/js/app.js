@@ -1,15 +1,14 @@
 var $source;
+var $save;
+var $textColor;
+var $crop;
 var canvas;
 var imageLoader;
 var ctx;
 var imageFilename;
 var img = new Image();
 var logo = new Image();
-var imageHeight;
-var $save;
-var $textColor;
-var $crop;
-var imageHeight;
+var scaledImageHeight;
 var fixedWidth = 1000;
 var dy = 0;
 var currentCrop = 'original';
@@ -39,17 +38,15 @@ var renderCanvas = function() {
     var imageAspect = img.width / img.height;
     if (currentCrop === 'original') {
         canvas.height = fixedWidth / imageAspect;
-        imageHeight = canvas.height;
+        scaledImageHeight = canvas.height;
     } else {
-        imageHeight = fixedWidth / imageAspect;
+        scaledImageHeight = fixedWidth / imageAspect;
     }
 
 
     if (currentCrop === 'original') {
-        ctx.drawImage(img, 0, 0, fixedWidth, imageHeight);
+        ctx.drawImage(img, 0, 0, fixedWidth, scaledImageHeight);
     } else {
-        ctx.fillStyle = "magenta";
-        ctx.fillRect(0, 0, fixedWidth, imageHeight);
         ctx.drawImage(
             img,
             0,
@@ -59,7 +56,7 @@ var renderCanvas = function() {
             0,
             dy,
             fixedWidth,
-            imageHeight
+            scaledImageHeight
         );
     }
 
@@ -122,10 +119,28 @@ var onDrag = function(e) {
         return;
     }
 
+    console.log('image height: ' + scaledImageHeight);
+    console.log('canvas height: ' + canvas.height);
+
     function update(e) {
         if (Math.abs(e.clientY - originY) > 1) {
             dy = dy - (originY - e.clientY) * 0.025;
+
+            // Prevent dragging image below upper bound
+            if (dy > 0) {
+                dy = 0;
+                return;
+            }
+
+            // Prevent dragging image above lower bound
+            if (dy < canvas.height - scaledImageHeight) {
+                dy = canvas.height - scaledImageHeight;
+                return;
+            }
+
             renderCanvas();
+
+            console.log(dy);
         }
     }
 
