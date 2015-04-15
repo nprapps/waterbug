@@ -63,6 +63,8 @@ var renderCanvas = function() {
 
     if (currentLogoColor === 'white') {
         ctx.globalAlpha = "0.8";
+    } else {
+        ctx.globalAlpha = "0.6";
     }
 
     ctx.drawImage(logo, canvas.width - (150 + 40), 40, 150, 52);
