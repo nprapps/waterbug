@@ -11,9 +11,9 @@ var $textColor;
 var $crop;
 var imageHeight;
 var fixedWidth = 1000;
-var dy;
-var currentCrop;
-var currentTextColor;
+var dy = 0;
+var currentCrop = 'original';
+var currentTextColor = 'white';
 
 var handleImage = function(e) {
     var reader = new FileReader();
@@ -25,7 +25,7 @@ var handleImage = function(e) {
 }
 
 var loadLogo = function() {
-    logo.src = 'assets/npr-' + currentTextColor + '.png';
+    logo.src = 'assets/npr-' + currentTextColor + '.svg';
 }
 
 var renderCanvas = function() {
@@ -44,11 +44,12 @@ var renderCanvas = function() {
         imageHeight = fixedWidth / imageAspect;
     }
 
-    dy = dy || -((imageHeight - canvas.height) / 2);
 
     if (currentCrop === 'original') {
         ctx.drawImage(img, 0, 0, fixedWidth, imageHeight);
     } else {
+        ctx.fillStyle = "magenta";
+        ctx.fillRect(0, 0, fixedWidth, imageHeight);
         ctx.drawImage(
             img,
             0,
@@ -63,15 +64,16 @@ var renderCanvas = function() {
     }
 
     if (currentTextColor === 'white') {
-        ctx.globalAlpha = "0.7";
+        ctx.globalAlpha = "0.8";
     }
-    ctx.drawImage(logo, canvas.width - (logo.width + 20), canvas.height - (logo.height + 20));
+
+    ctx.drawImage(logo, canvas.width - (150 + 20), canvas.height - (52 + 20), 150, 52);
 
     ctx.globalAlpha = "1";
     ctx.textBaseline = 'bottom';
     ctx.textAlign = 'left';
     ctx.fillStyle = currentTextColor;
-    ctx.font = 'normal 18pt Gotham';
+    ctx.font = 'normal 20pt "Gotham SSm"';
 
     if (currentTextColor === 'white') {
         ctx.shadowColor = 'black';
@@ -80,7 +82,7 @@ var renderCanvas = function() {
         ctx.shadowBlur = 10;
     }
 
-    ctx.fillText($source.val(), 20, canvas.height - 20);
+    ctx.fillText($source.val(), 20, canvas.height - 30);
 }
 
 var onSaveClick = function() {
@@ -113,21 +115,26 @@ var onSaveClick = function() {
 }
 
 var onDrag = function(e) {
-  e.preventDefault();
+    e.preventDefault();
+    var originY = e.clientY;
 
-  var originY = e.clientY;
+    if (currentCrop === 'original') {
+        return;
+    }
 
-  function update(e) {
-    dy = -((dy + (originY - e.clientY)) * 0.7);
-    renderCanvas();
-  }
+    function update(e) {
+        if (Math.abs(e.clientY - originY) > 1) {
+            dy = dy - (originY - e.clientY) * 0.025;
+            renderCanvas();
+        }
+    }
 
-  // Perform drag sequence:
-    $(document).on('mousemove.drag', update)
-    .on('mouseup.drag', function(e) {
-      $(document).off('mouseup.drag mousemove.drag');
-      update(e);
-    });
+    // Perform drag sequence:
+    $(document).on('mousemove.drag', _.debounce(update, 5, true))
+        .on('mouseup.drag', function(e) {
+            $(document).off('mouseup.drag mousemove.drag');
+            update(e);
+        });
 }
 
 var onTextColorChange = function() {
@@ -171,7 +178,6 @@ $(document).ready(function() {
     $crop.on('change', onCropChange);
     $(canvas).on('mousedown', onDrag);
 
-    onCropChange();
-    onTextColorChange();
+    loadLogo();
     renderCanvas();
 });
