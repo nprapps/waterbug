@@ -19,7 +19,7 @@ var handleImage = function(e) {
     var reader = new FileReader();
     reader.onload = function(e){
         imageFilename = e.target.result
-        img = new Image();
+        img.src = imageFilename
     }
     reader.readAsDataURL(e.target.files[0]);
 }
