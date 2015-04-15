@@ -4,7 +4,7 @@ var imageLoader;
 var ctx;
 var imageFilename;
 var img = new Image();
-var logo;
+var logo = new Image();
 var imageHeight;
 var $save;
 var $textColor;
@@ -25,7 +25,6 @@ var handleImage = function(e) {
 }
 
 var loadLogo = function() {
-    logo = new Image();
     logo.src = 'assets/npr-' + currentTextColor + '.png';
 }
 
@@ -160,10 +159,10 @@ $(document).ready(function() {
     $save = $('.save-btn');
     $textColor = $('input[name="textColor"]');
     $crop = $('input[name="crop"]');
-    currentCrop = 'original';
-    currentTextColor = 'white';
+
     img.src = 'assets/test.png';
     img.onload = renderCanvas;
+    logo.onload = renderCanvas;
 
     $source.on('keyup', renderCanvas);
     imageLoader.on('change', handleImage);
@@ -172,6 +171,7 @@ $(document).ready(function() {
     $crop.on('change', onCropChange);
     $(canvas).on('mousedown', onDrag);
 
-    loadLogo();
+    onCropChange();
+    onTextColorChange();
     renderCanvas();
 });
