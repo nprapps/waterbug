@@ -71,7 +71,8 @@ var renderCanvas = function() {
     if (currentCrop === 'original') {
         canvas.height = fixedWidth / imageAspect;
         scaledImageHeight = canvas.height;
-        ctx.drawImage(img,
+        ctx.drawImage(
+            img,
             0,
             0,
             fixedWidth,
