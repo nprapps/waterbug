@@ -12,6 +12,7 @@ var scaledImageHeight;
 var fixedWidth = 1000;
 var dy = 0;
 var currentCrop = 'original';
+var currentLogoColor = 'white';
 var currentTextColor = 'white';
 
 var handleImage = function(e) {
@@ -24,7 +25,7 @@ var handleImage = function(e) {
 }
 
 var loadLogo = function() {
-    logo.src = 'assets/npr-' + currentTextColor + '.svg';
+    logo.src = 'assets/npr-' + currentLogoColor + '.svg';
 }
 
 var renderCanvas = function() {
@@ -60,7 +61,7 @@ var renderCanvas = function() {
         );
     }
 
-    if (currentTextColor === 'white') {
+    if (currentLogoColor === 'white') {
         ctx.globalAlpha = "0.8";
     }
 
@@ -147,23 +148,22 @@ var onDrag = function(e) {
         });
 }
 
-var onTextColorChange = function() {
-    for (var i = 0; i < $textColor.length; i++) {
-        if ($textColor.eq(i).is(':checked')) {
-            currentTextColor = $textColor.eq(i).val();
-        }
-    }
+var onLogoColorChange = function(e) {
+    currentLogoColor = $(this).val();
+
+    loadLogo();
+    renderCanvas();
+}
+
+var onTextColorChange = function(e) {
+    currentTextColor = $(this).val();
 
     loadLogo();
     renderCanvas();
 }
 
 var onCropChange = function() {
-    for (var i = 0; i < $crop.length; i++) {
-        if ($crop.eq(i).is(':checked')) {
-            currentCrop = $crop.eq(i).val();
-        }
-    }
+    currentCrop = $(this).val();
 
     if (currentCrop !== 'original') {
         $(canvas).addClass('is-draggable');
@@ -191,6 +191,7 @@ $(document).ready(function() {
     imageLoader.on('change', handleImage);
     $save.on('click', onSaveClick);
     $textColor.on('change', onTextColorChange);
+    $('input[name="logoColor"]').on('change', onLogoColorChange);
     $crop.on('change', onCropChange);
     $(canvas).on('mousedown', onDrag);
 
