@@ -60,36 +60,29 @@ var renderCanvas = function() {
                 imageHeight
             );
         }
-
-        var logo = new Image();
-
-        logo.onload = function(){
-            if (currentTextColor === 'white') {
-                ctx.globalAlpha = "0.7";
-            }
-            ctx.drawImage(logo, canvas.width - (logo.width + 20), canvas.height - (logo.height + 20));
-
-            ctx.globalAlpha = "1";
-
-            ctx.textBaseline = 'bottom';
-            ctx.textAlign = 'left';
-            ctx.fillStyle = currentTextColor;
-            ctx.font = 'normal 18pt Gotham';
-
-            if (currentTextColor === 'white') {
-                ctx.shadowColor = 'black';
-                ctx.shadowOffsetX = 5;
-                ctx.shadowOffsetY = 5;
-                ctx.shadowBlur = 10;
-            }
-
-            ctx.fillText($source.val(), 20, canvas.height - 20);
-        }
-
-        logo.src = 'assets/npr-' + currentTextColor + '.png';
     }
-    img.src = imageFilename || 'assets/test.png';
 
+    img.src = imageFilename || 'assets/test.png';
+    var logo = new Image();
+    logo.onload = function(){
+        if (currentTextColor === 'white') {
+            ctx.globalAlpha = "0.7";
+        }
+        ctx.drawImage(logo, canvas.width - (logo.width + 20), canvas.height - (logo.height + 20));
+
+        ctx.textBaseline = 'bottom';
+        ctx.textAlign = 'left';
+        ctx.fillStyle = currentTextColor;
+        ctx.font = 'normal 18pt Gotham';
+
+        if (currentTextColor === 'white') {
+            ctx.shadowColor = 'black';
+            ctx.shadowOffsetX = 5;
+            ctx.shadowOffsetY = 5;
+            ctx.shadowBlur = 10;
+        }
+    }
+    logo.src = 'assets/npr-' + currentTextColor + '.png';
 }
 
 var onSaveClick = function() {
@@ -132,9 +125,9 @@ var onDrag = function(e) {
   }
 
   // Perform drag sequence:
-    $(canvas).on('mousemove.drag', update)
+    $(document).on('mousemove.drag', update)
     .on('mouseup.drag', function(e) {
-      $(canvas).off('mouseup.drag mousemove.drag');
+      $(document).off('mouseup.drag mousemove.drag');
       update(e);
     });
 }
