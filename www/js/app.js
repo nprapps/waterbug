@@ -10,6 +10,11 @@ var canvas;
 var scaledImageHeight;
 var fixedWidth = 1000;
 var dy = 0;
+var logoDimensions = {
+    w: 150,
+    h: 52
+};
+var elementPadding = 40;
 var imageFilename;
 var currentCrop = 'original';
 var currentLogoColor = 'white';
@@ -87,7 +92,12 @@ var renderCanvas = function() {
     if (currentCrop === 'original') {
         canvas.height = fixedWidth / imageAspect;
         scaledImageHeight = canvas.height;
-        ctx.drawImage(img, 0, 0, fixedWidth, scaledImageHeight);
+        ctx.drawImage(img,
+            0,
+            0,
+            fixedWidth,
+            scaledImageHeight
+        );
     } else {
         scaledImageHeight = fixedWidth / imageAspect;
         ctx.drawImage(
@@ -107,7 +117,13 @@ var renderCanvas = function() {
     if (currentLogoColor === 'white') {
         ctx.globalAlpha = "0.8";
     }
-    ctx.drawImage(logo, canvas.width - (150 + 40), 40, 150, 52);
+    ctx.drawImage(
+        logo,
+        canvas.width - (logoDimensions.w + elementPadding),
+        elementPadding,
+        logoDimensions.w,
+        logoDimensions.h
+    );
 
     // reset alpha channel so text is not translucent
     ctx.globalAlpha = "1";
@@ -125,7 +141,11 @@ var renderCanvas = function() {
         ctx.shadowBlur = 10;
     }
 
-    ctx.fillText($source.val(), 40, canvas.height - 40);
+    ctx.fillText(
+        $source.val(),
+        elementPadding,
+        canvas.height - elementPadding
+    );
 }
 
 /*
