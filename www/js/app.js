@@ -4,10 +4,13 @@ var imageLoader;
 var ctx;
 var imageFilename;
 var img;
+var imageHeight;
 var $save;
 var $textColor;
+var $crop;
 var imageHeight;
 var fixedWidth = 1000;
+var dy;
 
 var handleImage = function(e) {
     var reader = new FileReader();
@@ -27,13 +30,42 @@ var renderCanvas = function() {
         }
     }
 
+    for (var i = 0; i < $crop.length; i++) {
+        if ($crop.eq(i).is(':checked')) {
+            var crop = $crop.eq(i).val();
+        }
+    }
+
     img = new Image();
 
     img.onload = function(){
         var imageAspect = img.width / img.height;
         canvas.width = fixedWidth;
-        canvas.height = fixedWidth / imageAspect;
-        ctx.drawImage(img, 0, 0, fixedWidth, canvas.height);
+        if (crop === 'original') {
+            canvas.height = fixedWidth / imageAspect;
+            imageHeight = canvas.height;
+        } else {
+            canvas.height = fixedWidth / (16/9)
+            imageHeight = fixedWidth / imageAspect;
+        }
+
+        dy = dy || -((imageHeight - canvas.height) / 2);
+
+        if (crop === 'original') {
+            ctx.drawImage(img, 0, 0, fixedWidth, imageHeight);
+        } else {
+            ctx.drawImage(
+                img,
+                0,
+                0,
+                img.width,
+                img.height,
+                0,
+                dy,
+                fixedWidth,
+                imageHeight
+            );
+        }
 
         var logo = new Image();
 
@@ -43,10 +75,12 @@ var renderCanvas = function() {
             }
             ctx.drawImage(logo, canvas.width - (logo.width + 20), canvas.height - (logo.height + 20));
 
+            ctx.globalAlpha = "1";
+
             ctx.textBaseline = 'bottom';
             ctx.textAlign = 'left';
             ctx.fillStyle = textColor;
-            ctx.font = 'normal 12pt Gotham';
+            ctx.font = 'normal 18pt Gotham';
 
             if (textColor === 'white') {
                 ctx.shadowColor = 'black';
@@ -93,6 +127,24 @@ var onSaveClick = function() {
     }
 }
 
+var onDrag = function(e) {
+  e.preventDefault();
+
+  var originY = e.clientY;
+
+  function update(e) {
+    dy = -((dy + (originY - e.clientY)) * 0.7);
+    renderCanvas();
+  }
+
+  // Perform drag sequence:
+    $(canvas).on('mousemove.drag', update)
+    .on('mouseup.drag', function(e) {
+      $(canvas).off('mouseup.drag mousemove.drag');
+      update(e);
+    });
+}
+
 $(document).ready(function() {
     $source = $('#source');
     canvas = $('#imageCanvas')[0];
@@ -100,11 +152,15 @@ $(document).ready(function() {
     ctx = canvas.getContext('2d');
     $save = $('.save-btn');
     $textColor = $('input[name="textColor"]');
+    $crop = $('input[name="crop"]');
 
     $source.on('keyup', renderCanvas);
     imageLoader.on('change', handleImage);
     $save.on('click', onSaveClick);
     $textColor.on('change', renderCanvas);
+    $crop.on('change', renderCanvas);
+
+    $(canvas).on('mousedown', onDrag);
 
     renderCanvas();
 });
