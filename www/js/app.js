@@ -64,7 +64,7 @@ var renderCanvas = function() {
         ctx.globalAlpha = "0.8";
     }
 
-    ctx.drawImage(logo, canvas.width - (150 + 20), canvas.height - (52 + 20), 150, 52);
+    ctx.drawImage(logo, canvas.width - (150 + 40), 40, 150, 52);
 
     ctx.globalAlpha = "1";
     ctx.textBaseline = 'bottom';
@@ -73,13 +73,13 @@ var renderCanvas = function() {
     ctx.font = 'normal 20pt "Gotham SSm"';
 
     if (currentTextColor === 'white') {
-        ctx.shadowColor = 'black';
-        ctx.shadowOffsetX = 5;
-        ctx.shadowOffsetY = 5;
+        ctx.shadowColor = 'rgba(0,0,0,0.7)';
+        ctx.shadowOffsetX = 0;
+        ctx.shadowOffsetY = 0;
         ctx.shadowBlur = 10;
     }
 
-    ctx.fillText($source.val(), 20, canvas.height - 30);
+    ctx.fillText($source.val(), 40, canvas.height - 40);
 }
 
 var onSaveClick = function() {
