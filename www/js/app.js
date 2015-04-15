@@ -11,6 +11,9 @@ var $crop;
 var imageHeight;
 var fixedWidth = 1000;
 var dy;
+var currentCrop;
+var currentTextColor;
+
 
 var handleImage = function(e) {
     var reader = new FileReader();
@@ -22,36 +25,27 @@ var handleImage = function(e) {
 }
 
 var renderCanvas = function() {
+    canvas.width = fixedWidth;
+
+    if (currentCrop !== 'original') {
+        canvas.height = fixedWidth / (16/9);
+    }
     ctx.clearRect(0,0,canvas.width,canvas.height);
-
-    for (var i = 0; i < $textColor.length; i++) {
-        if ($textColor.eq(i).is(':checked')) {
-            var textColor = $textColor.eq(i).val();
-        }
-    }
-
-    for (var i = 0; i < $crop.length; i++) {
-        if ($crop.eq(i).is(':checked')) {
-            var crop = $crop.eq(i).val();
-        }
-    }
 
     img = new Image();
 
     img.onload = function(){
         var imageAspect = img.width / img.height;
-        canvas.width = fixedWidth;
-        if (crop === 'original') {
+        if (currentCrop === 'original') {
             canvas.height = fixedWidth / imageAspect;
             imageHeight = canvas.height;
         } else {
-            canvas.height = fixedWidth / (16/9)
             imageHeight = fixedWidth / imageAspect;
         }
 
         dy = dy || -((imageHeight - canvas.height) / 2);
 
-        if (crop === 'original') {
+        if (currentCrop === 'original') {
             ctx.drawImage(img, 0, 0, fixedWidth, imageHeight);
         } else {
             ctx.drawImage(
@@ -70,7 +64,7 @@ var renderCanvas = function() {
         var logo = new Image();
 
         logo.onload = function(){
-            if (textColor === 'white') {
+            if (currentTextColor === 'white') {
                 ctx.globalAlpha = "0.7";
             }
             ctx.drawImage(logo, canvas.width - (logo.width + 20), canvas.height - (logo.height + 20));
@@ -79,10 +73,10 @@ var renderCanvas = function() {
 
             ctx.textBaseline = 'bottom';
             ctx.textAlign = 'left';
-            ctx.fillStyle = textColor;
+            ctx.fillStyle = currentTextColor;
             ctx.font = 'normal 18pt Gotham';
 
-            if (textColor === 'white') {
+            if (currentTextColor === 'white') {
                 ctx.shadowColor = 'black';
                 ctx.shadowOffsetX = 5;
                 ctx.shadowOffsetY = 5;
@@ -92,10 +86,10 @@ var renderCanvas = function() {
             ctx.fillText($source.val(), 20, canvas.height - 20);
         }
 
-        logo.src = 'assets/npr-' + textColor + '.png';
+        logo.src = 'assets/npr-' + currentTextColor + '.png';
     }
-
     img.src = imageFilename || 'assets/test.png';
+
 }
 
 var onSaveClick = function() {
@@ -145,6 +139,26 @@ var onDrag = function(e) {
     });
 }
 
+var onTextColorChange = function() {
+    for (var i = 0; i < $textColor.length; i++) {
+        if ($textColor.eq(i).is(':checked')) {
+            currentTextColor = $textColor.eq(i).val();
+        }
+    }
+
+    renderCanvas();
+}
+
+var onCropChange = function() {
+    for (var i = 0; i < $crop.length; i++) {
+        if ($crop.eq(i).is(':checked')) {
+            currentCrop = $crop.eq(i).val();
+        }
+    }
+
+    renderCanvas();
+}
+
 $(document).ready(function() {
     $source = $('#source');
     canvas = $('#imageCanvas')[0];
@@ -153,13 +167,14 @@ $(document).ready(function() {
     $save = $('.save-btn');
     $textColor = $('input[name="textColor"]');
     $crop = $('input[name="crop"]');
+    currentCrop = 'original';
+    currentTextColor = 'white';
 
     $source.on('keyup', renderCanvas);
     imageLoader.on('change', handleImage);
     $save.on('click', onSaveClick);
-    $textColor.on('change', renderCanvas);
-    $crop.on('change', renderCanvas);
-
+    $textColor.on('change', onTextColorChange);
+    $crop.on('change', onCropChange);
     $(canvas).on('mousedown', onDrag);
 
     renderCanvas();
