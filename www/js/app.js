@@ -155,6 +155,12 @@ var onCropChange = function() {
         }
     }
 
+    if (currentCrop !== 'original') {
+        $(canvas).addClass('is-draggable');
+    } else {
+        $(canvas).removeClass('is-draggable');
+    }
+
     renderCanvas();
 }
 

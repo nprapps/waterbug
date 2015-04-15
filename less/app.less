@@ -315,6 +315,10 @@ h1 + #story-meta { margin-top: -11px; }
 #imageCanvas {
 	.scale(0.64);
 	.transform-origin(top left);
+
+	&.is-draggable {
+		cursor: ns-resize;
+	}
 }
 
 .canvas-cell {
