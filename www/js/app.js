@@ -3,7 +3,8 @@ var canvas;
 var imageLoader;
 var ctx;
 var imageFilename;
-var img;
+var img = new Image();
+var logo;
 var imageHeight;
 var $save;
 var $textColor;
@@ -14,14 +15,18 @@ var dy;
 var currentCrop;
 var currentTextColor;
 
-
 var handleImage = function(e) {
     var reader = new FileReader();
-    reader.onload = function(event){
-        imageFilename = event.target.result
-        renderCanvas();
+    reader.onload = function(e){
+        imageFilename = e.target.result
+        img = new Image();
     }
     reader.readAsDataURL(e.target.files[0]);
+}
+
+var loadLogo = function() {
+    logo = new Image();
+    logo.src = 'assets/npr-' + currentTextColor + '.png';
 }
 
 var renderCanvas = function() {
@@ -32,57 +37,51 @@ var renderCanvas = function() {
     }
     ctx.clearRect(0,0,canvas.width,canvas.height);
 
-    img = new Image();
-
-    img.onload = function(){
-        var imageAspect = img.width / img.height;
-        if (currentCrop === 'original') {
-            canvas.height = fixedWidth / imageAspect;
-            imageHeight = canvas.height;
-        } else {
-            imageHeight = fixedWidth / imageAspect;
-        }
-
-        dy = dy || -((imageHeight - canvas.height) / 2);
-
-        if (currentCrop === 'original') {
-            ctx.drawImage(img, 0, 0, fixedWidth, imageHeight);
-        } else {
-            ctx.drawImage(
-                img,
-                0,
-                0,
-                img.width,
-                img.height,
-                0,
-                dy,
-                fixedWidth,
-                imageHeight
-            );
-        }
+    var imageAspect = img.width / img.height;
+    if (currentCrop === 'original') {
+        canvas.height = fixedWidth / imageAspect;
+        imageHeight = canvas.height;
+    } else {
+        imageHeight = fixedWidth / imageAspect;
     }
 
-    img.src = imageFilename || 'assets/test.png';
-    var logo = new Image();
-    logo.onload = function(){
-        if (currentTextColor === 'white') {
-            ctx.globalAlpha = "0.7";
-        }
-        ctx.drawImage(logo, canvas.width - (logo.width + 20), canvas.height - (logo.height + 20));
+    dy = dy || -((imageHeight - canvas.height) / 2);
 
-        ctx.textBaseline = 'bottom';
-        ctx.textAlign = 'left';
-        ctx.fillStyle = currentTextColor;
-        ctx.font = 'normal 18pt Gotham';
-
-        if (currentTextColor === 'white') {
-            ctx.shadowColor = 'black';
-            ctx.shadowOffsetX = 5;
-            ctx.shadowOffsetY = 5;
-            ctx.shadowBlur = 10;
-        }
+    if (currentCrop === 'original') {
+        ctx.drawImage(img, 0, 0, fixedWidth, imageHeight);
+    } else {
+        ctx.drawImage(
+            img,
+            0,
+            0,
+            img.width,
+            img.height,
+            0,
+            dy,
+            fixedWidth,
+            imageHeight
+        );
     }
-    logo.src = 'assets/npr-' + currentTextColor + '.png';
+
+    if (currentTextColor === 'white') {
+        ctx.globalAlpha = "0.7";
+    }
+    ctx.drawImage(logo, canvas.width - (logo.width + 20), canvas.height - (logo.height + 20));
+
+    ctx.globalAlpha = "1";
+    ctx.textBaseline = 'bottom';
+    ctx.textAlign = 'left';
+    ctx.fillStyle = currentTextColor;
+    ctx.font = 'normal 18pt Gotham';
+
+    if (currentTextColor === 'white') {
+        ctx.shadowColor = 'black';
+        ctx.shadowOffsetX = 5;
+        ctx.shadowOffsetY = 5;
+        ctx.shadowBlur = 10;
+    }
+
+    ctx.fillText($source.val(), 20, canvas.height - 20);
 }
 
 var onSaveClick = function() {
@@ -139,6 +138,7 @@ var onTextColorChange = function() {
         }
     }
 
+    loadLogo();
     renderCanvas();
 }
 
@@ -162,6 +162,8 @@ $(document).ready(function() {
     $crop = $('input[name="crop"]');
     currentCrop = 'original';
     currentTextColor = 'white';
+    img.src = 'assets/test.png';
+    img.onload = renderCanvas;
 
     $source.on('keyup', renderCanvas);
     imageLoader.on('change', handleImage);
@@ -170,5 +172,6 @@ $(document).ready(function() {
     $crop.on('change', onCropChange);
     $(canvas).on('mousedown', onDrag);
 
+    loadLogo();
     renderCanvas();
 });
