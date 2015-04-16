@@ -3,7 +3,9 @@ var $source;
 var $save;
 var $textColor;
 var $crop;
+var $logoColor;
 var $imageLoader;
+var $canvas;
 var canvas;
 
 // state
@@ -28,12 +30,14 @@ var logo = new Image();
 
 var onDocumentLoad = function(e) {
     $source = $('#source');
-    canvas = $('#imageCanvas')[0];
+    $canvas = $('#imageCanvas');
+    canvas = $canvas[0];
     $imageLoader = $('#imageLoader');
     ctx = canvas.getContext('2d');
     $save = $('.save-btn');
     $textColor = $('input[name="textColor"]');
     $crop = $('input[name="crop"]');
+    $logoColor = $('input[name="logoColor"]')
 
     img.src = 'assets/test.png';
     img.onload = renderCanvas;
@@ -43,9 +47,9 @@ var onDocumentLoad = function(e) {
     $imageLoader.on('change', handleImage);
     $save.on('click', onSaveClick);
     $textColor.on('change', onTextColorChange);
-    $('input[name="logoColor"]').on('change', onLogoColorChange);
+    $logoColor.on('change', onLogoColorChange);
     $crop.on('change', onCropChange);
-    $(canvas).on('mousedown', onDrag);
+    $canvas.on('mousedown', onDrag);
 
     loadLogo();
     renderCanvas();
@@ -246,9 +250,9 @@ var onCropChange = function() {
     currentCrop = $(this).val();
 
     if (currentCrop !== 'original') {
-        $(canvas).addClass('is-draggable');
+        $canvas.addClass('is-draggable');
     } else {
-        $(canvas).removeClass('is-draggable');
+        $canvas.removeClass('is-draggable');
     }
 
     renderCanvas();
