@@ -147,6 +147,7 @@ var renderCanvas = function() {
 var onDrag = function(e) {
     e.preventDefault();
     var originY = e.clientY;
+    var startY = dy;
 
     if (currentCrop === 'original') {
         return;
@@ -154,7 +155,7 @@ var onDrag = function(e) {
 
     function update(e) {
         if (Math.abs(e.clientY - originY) > 1) {
-            dy = dy - (originY - e.clientY) * 0.025;
+            dy = startY - (originY - e.clientY);// * 0.025;
 
             // Prevent dragging image below upper bound
             if (dy > 0) {
