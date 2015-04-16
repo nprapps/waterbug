@@ -39,7 +39,7 @@ var onDocumentLoad = function(e) {
     $textColor = $('input[name="textColor"]');
     $crop = $('input[name="crop"]');
     $logoColor = $('input[name="logoColor"]');
-    $qualityQuestions = $('.quality-questions');
+    $qualityQuestions = $('.quality-question');
 
     img.src = 'assets/test.png';
     img.onload = renderCanvas;
@@ -202,7 +202,9 @@ var loadLogo = function() {
 /*
 * Download the image on save click
 */
-var onSaveClick = function() {
+var onSaveClick = function(e) {
+    e.preventDefault();
+
     /// create an "off-screen" anchor tag
     var link = document.createElement('a'),
         e;
@@ -266,6 +268,7 @@ var onCropChange = function() {
 }
 
 var onCheckboxChange = function() {
+    console.log('fire');
     var checkedCount = 0;
 
     for (var i = 0; i < $qualityQuestions.length; i++) {
