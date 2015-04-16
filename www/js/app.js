@@ -39,7 +39,7 @@ var onDocumentLoad = function(e) {
     $textColor = $('input[name="textColor"]');
     $crop = $('input[name="crop"]');
     $logoColor = $('input[name="logoColor"]');
-    $checkboxes = $('input[type="checkbox"]');
+    $checkboxes = $('.quality-questions');
 
     img.src = 'assets/test.png';
     img.onload = renderCanvas;
@@ -274,7 +274,7 @@ var onCheckboxChange = function() {
         }
     }
 
-    if (checkedCount === 3) {
+    if (checkedCount === $checkboxes.length) {
         $save.removeAttr('disabled');
         $("body").off("contextmenu", "canvas");
     } else {
