@@ -7,7 +7,7 @@ var $logoColor;
 var $imageLoader;
 var $canvas;
 var canvas;
-var $checkboxes;
+var $qualityQuestions;
 
 // state
 var scaledImageHeight;
@@ -39,7 +39,7 @@ var onDocumentLoad = function(e) {
     $textColor = $('input[name="textColor"]');
     $crop = $('input[name="crop"]');
     $logoColor = $('input[name="logoColor"]');
-    $checkboxes = $('.quality-questions');
+    $qualityQuestions = $('.quality-questions');
 
     img.src = 'assets/test.png';
     img.onload = renderCanvas;
@@ -52,7 +52,7 @@ var onDocumentLoad = function(e) {
     $logoColor.on('change', onLogoColorChange);
     $crop.on('change', onCropChange);
     $canvas.on('mousedown', onDrag);
-    $checkboxes.on('change', onCheckboxChange);
+    $qualityQuestions.on('change', onCheckboxChange);
 
     $("body").on("contextmenu", "canvas", function(e) {
         return false;
@@ -268,13 +268,13 @@ var onCropChange = function() {
 var onCheckboxChange = function() {
     var checkedCount = 0;
 
-    for (var i = 0; i < $checkboxes.length; i++) {
-        if ($checkboxes.eq(i).is(':checked')) {
+    for (var i = 0; i < $qualityQuestions.length; i++) {
+        if ($qualityQuestions.eq(i).is(':checked')) {
             checkedCount++;
         }
     }
 
-    if (checkedCount === $checkboxes.length) {
+    if (checkedCount === $qualityQuestions.length) {
         $save.removeAttr('disabled');
         $("body").off("contextmenu", "canvas");
     } else {
