@@ -23,8 +23,8 @@ var logoDimensions = {
         h: 52
     },
     'music': {
-        w: 320,
-        h: 85
+        w: 305,
+        h: 81
     }
 
 };
