@@ -63,7 +63,7 @@ var onDocumentLoad = function(e) {
     $logoColor.on('change', onLogoColorChange);
     $crop.on('change', onCropChange);
     $canvas.on('mousedown', onDrag);
-    $qualityQuestions.on('change', onCheckboxChange);
+    // $qualityQuestions.on('change', onCheckboxChange);
 
     $("body").on("contextmenu", "canvas", function(e) {
         return false;
