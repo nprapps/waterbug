@@ -2,6 +2,7 @@
 var $source;
 var $save;
 var $textColor;
+var $logo;
 var $crop;
 var $logoColor;
 var $imageLoader;
@@ -14,12 +15,20 @@ var scaledImageHeight;
 var fixedWidth = 1000;
 var dy = 0;
 var logoDimensions = {
-    w: 150,
-    h: 52
+    'npr': {
+        w: 150,
+        h: 52
+    },
+    'music': {
+        w: 320,
+        h: 85
+    }
+
 };
 var elementPadding = 40;
 var imageFilename;
 var currentCrop = 'original';
+var currentLogo = 'npr';
 var currentLogoColor = 'white';
 var currentTextColor = 'white';
 
@@ -37,6 +46,7 @@ var onDocumentLoad = function(e) {
     ctx = canvas.getContext('2d');
     $save = $('.save-btn');
     $textColor = $('input[name="textColor"]');
+    $logo = $('input[name="logo"]');
     $crop = $('input[name="crop"]');
     $logoColor = $('input[name="logoColor"]');
     $qualityQuestions = $('.quality-question');
@@ -49,6 +59,7 @@ var onDocumentLoad = function(e) {
     $imageLoader.on('change', handleImage);
     $save.on('click', onSaveClick);
     $textColor.on('change', onTextColorChange);
+    $logo.on('change', onLogoChange);
     $logoColor.on('change', onLogoColorChange);
     $crop.on('change', onCropChange);
     $canvas.on('mousedown', onDrag);
@@ -112,10 +123,10 @@ var renderCanvas = function() {
     }
     ctx.drawImage(
         logo,
-        canvas.width - (logoDimensions.w + elementPadding),
-        elementPadding,
-        logoDimensions.w,
-        logoDimensions.h
+        canvas.width - (logoDimensions[currentLogo]['w'] + elementPadding),
+        currentLogo === 'npr'? elementPadding : elementPadding - 15,
+        logoDimensions[currentLogo]['w'],
+        logoDimensions[currentLogo]['h']
     );
 
     // reset alpha channel so text is not translucent
@@ -135,7 +146,7 @@ var renderCanvas = function() {
     }
 
     ctx.fillText(
-        $source.val(),
+        $source.val()||'Photgrapher/Organization',
         elementPadding,
         canvas.height - elementPadding
     );
@@ -155,7 +166,7 @@ var onDrag = function(e) {
 
     function update(e) {
         if (Math.abs(e.clientY - originY) > 1) {
-            dy = startY - (originY - e.clientY);// * 0.025;
+            dy = startY - (originY - e.clientY);
 
             // Prevent dragging image below upper bound
             if (dy > 0) {
@@ -197,7 +208,7 @@ var handleImage = function(e) {
 * Load the logo based on radio buttons
 */
 var loadLogo = function() {
-    logo.src = 'assets/npr-' + currentLogoColor + '.svg';
+    logo.src = 'assets/logo-' + currentLogo + '-' + currentLogoColor + '.svg';
 }
 
 /*
@@ -250,6 +261,16 @@ var onLogoColorChange = function(e) {
 var onTextColorChange = function(e) {
     currentTextColor = $(this).val();
 
+    renderCanvas();
+}
+
+/*
+* Handle logo radio button clicks
+*/
+var onLogoChange = function(e) {
+    currentLogo = $(this).val();
+
+    loadLogo();
     renderCanvas();
 }
 
