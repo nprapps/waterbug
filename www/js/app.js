@@ -371,20 +371,20 @@ var onCopyrightChange = function() {
     $source.parents('.form-group').removeClass('has-warning');
 
     if (currentCopyright === 'npr') {
-        $photographer.removeAttr('disabled');
-        $source.attr('disabled', '')
+        $photographer.parents('.form-group').slideDown();
+        $source.parents('.form-group').slideUp();
     } else if (currentCopyright === 'freelance') {
-        $photographer.removeAttr('disabled');
-        $source.attr('disabled', '')
+        $photographer.parents('.form-group').slideDown();
+        $source.parents('.form-group').slideUp();
         $photographer.parents('.form-group').addClass('has-warning');
     } else if (currentCopyright === 'wire' || currentCopyright === 'third-party') {
-        $photographer.removeAttr('disabled');
-        $source.removeAttr('disabled');
+        $photographer.parents('.form-group').slideDown();
+        $source.parents('.form-group').slideDown();
         $source.parents('.form-group').addClass('has-warning');
     } else {
         credit = '';
-        $photographer.attr('disabled', '');
-        $source.attr('disabled', '')
+        $photographer.parents('.form-group').slideUp();
+        $source.parents('.form-group').slideUp();
     }
 
     renderCanvas();
