@@ -11,6 +11,7 @@ var $canvas;
 var canvas;
 var $qualityQuestions;
 var $copyrightHolder;
+var $dragHelp;
 
 // state
 var scaledImageHeight;
@@ -57,6 +58,7 @@ var onDocumentLoad = function(e) {
     $logoColor = $('input[name="logoColor"]');
     $qualityQuestions = $('.quality-question');
     $copyrightHolder = $('.copyright-holder');
+    $dragHelp = $('.drag-help');
 
     img.src = 'assets/test-kitten.jpg';
     img.onload = renderCanvas;
@@ -343,8 +345,10 @@ var onCropChange = function() {
 
     if (currentCrop !== 'original') {
         $canvas.addClass('is-draggable');
+        $dragHelp.show();
     } else {
         $canvas.removeClass('is-draggable');
+        $dragHelp.hide();
     }
 
     renderCanvas();

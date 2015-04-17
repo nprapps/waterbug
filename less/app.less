@@ -120,7 +120,6 @@ header {
     }
 
     .header-wrapper {
-        max-width: 1200px;
         margin: 0 auto;
         padding: 0 @grid-gutter-width / 2;
     }
@@ -235,6 +234,11 @@ input[type="file"] {
     letter-spacing: 0;
 }
 
+.guidelines {
+    padding-left: 18px;
+    font-size: @font-size-small;
+}
+
 .sample-credit {
     font-family: @font-family-condensed;
     font-size: @font-size-small;
@@ -246,6 +250,16 @@ input[type="file"] {
 .canvas-cell {
     width: 640px;
     overflow: hidden;
+    position: relative;
+}
+
+.drag-help {
+    display: none;
+    position: absolute;
+    top: 370px;
+    font-size: @font-size-small;
+    font-family: @font-family-base;
+    color: #999;
 }
 
 .canvas-wrapper {
