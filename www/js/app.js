@@ -382,6 +382,7 @@ var onCopyrightChange = function() {
         $source.removeAttr('disabled');
         $source.parents('.form-group').addClass('has-warning');
     } else {
+        credit = '';
         $photographer.attr('disabled', '');
         $source.attr('disabled', '')
     }

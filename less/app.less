@@ -227,6 +227,34 @@ input[type="file"] {
     -webkit-font-smoothing: antialiased;
 }
 
+.btn-group-sm > .btn {
+    font-size: 13px;
+    padding: 5px;
+}
+
+.btn:active,
+.btn.active {
+    outline: 0;
+    background-image: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.btn:hover {
+    background: #444;
+}
+
+.form-group {
+    .required {
+        display: none;
+        color: #aaa;
+
+        .has-warning& {
+            display: inline;
+        }
+    }
+}
+
 .radio-inline {
     font-family: @font-family-base;
     text-transform: none;

@@ -126,7 +126,7 @@
 
 @btn-primary-color:              #fff;
 @btn-primary-bg:                 #6d8ac4;
-@btn-primary-border:             darken(#6d8ac4, 5%);
+@btn-primary-border:             transparent; //darken(#6d8ac4, 5%);
 
 @btn-success-color:              #fff;
 @btn-success-bg:                 @brand-success;
@@ -231,7 +231,7 @@
 
 // Large screen / wide desktop
 // Note: Deprecated @screen-lg and @screen-lg-desktop as of v3.0.1
-@screen-lg:                  1200px;
+@screen-lg:                  1085px;
 @screen-lg-min:              @screen-lg;
 @screen-lg-desktop:          @screen-lg-min;
 
@@ -639,5 +639,5 @@
 @container-md:                 @container-desktop;
 
 // Large screen / wide desktop
-@container-large-desktop:      ((1140px + @grid-gutter-width));
+@container-large-desktop:      ((1024px + @grid-gutter-width));
 @container-lg:                 @container-large-desktop;
