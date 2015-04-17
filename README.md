@@ -79,8 +79,8 @@ curl https://npmjs.org/install.sh | sh
 Then bootstrap the project:
 
 ```
-cd $NEW_PROJECT_SLUG
-mkvirtualenv $NEW_PROJECT_SLUG
+cd waterbug
+mkvirtualenv waterbug
 pip install -r requirements.txt
 npm install
 fab update
@@ -93,7 +93,7 @@ Hide project secrets
 
 Project secrets should **never** be stored in ``app_config.py`` or anywhere else in the repository. They will be leaked to the client if you do. Instead, always store passwords, keys, etc. in environment variables and document that they are needed here in the README.
 
-Any environment variable that starts with ``$PROJECT_SLUG_`` will be automatically loaded when ``app_config.get_secrets()`` is called.
+Any environment variable that starts with ``waterbug`` will be automatically loaded when ``app_config.get_secrets()`` is called.
 
 Save media assets
 -----------------
@@ -255,7 +255,7 @@ Compile static assets
 Compile LESS to CSS, compile javascript templates to Javascript and minify all assets:
 
 ```
-workon $NEW_PROJECT_SLUG
+workon waterbug
 fab render
 ```
 
@@ -333,7 +333,7 @@ You can also deploy only configuration files by running (normally this is invoke
 fab servers.deploy_confs
 ```
 
-Run a  remote fab command
+Run a remote fab command
 -------------------------
 
 Sometimes it makes sense to run a fabric command on the server, for instance, when you need to render using a production database. You can do this with the `fabcast` fabric command. For example:
