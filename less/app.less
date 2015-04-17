@@ -191,13 +191,11 @@ h6.check-header {
 
 .editor {
     position: absolute;
-    right: @grid-gutter-width;
+    left: 640px + @grid-gutter-width;
+    right: 0;
     top: 0;
     bottom: 0;
-    width: calc(~"(100%) - (700px -)");
-    width: -webkit-calc(~"(100%) - (700px)");
-    padding-top: 30px;
-    padding-left: @grid-gutter-width;
+    padding: 30px;
     overflow: scroll;
 }
 
@@ -249,7 +247,8 @@ input[type="file"] {
         display: none;
         color: #aaa;
 
-        .has-warning& {
+        .has-warning&,
+        &.is-visible {
             display: inline;
         }
     }
