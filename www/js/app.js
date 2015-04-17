@@ -51,7 +51,7 @@ var onDocumentLoad = function(e) {
     $logoColor = $('input[name="logoColor"]');
     $qualityQuestions = $('.quality-question');
 
-    img.src = 'assets/test.png';
+    img.src = 'assets/test-kitten.jpg';
     img.onload = renderCanvas;
     logo.onload = renderCanvas;
 
@@ -146,7 +146,7 @@ var renderCanvas = function() {
     }
 
     ctx.fillText(
-        $source.val()||'Photgrapher/Organization',
+        $source.val() === '' ? 'Belal Khan/Flickr': $source.val(),
         elementPadding,
         canvas.height - elementPadding
     );
