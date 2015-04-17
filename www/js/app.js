@@ -354,17 +354,6 @@ var onCropChange = function() {
     renderCanvas();
 }
 
-// var onCheckboxChange = function() {
-//     console.log('fire');
-//     var checkedCount = 0;
-
-//     for (var i = 0; i < $qualityQuestions.length; i++) {
-//         if ($qualityQuestions.eq(i).is(':checked')) {
-//             checkedCount++;
-//         }
-//     }
-// }
-
 var onCopyrightChange = function() {
     currentCopyright = $copyrightHolder.val();
     $photographer.parents('.form-group').removeClass('has-warning');
@@ -376,15 +365,17 @@ var onCopyrightChange = function() {
     } else if (currentCopyright === 'freelance') {
         $photographer.parents('.form-group').slideDown();
         $source.parents('.form-group').slideUp();
-        $photographer.parents('.form-group').addClass('has-warning');
+        $photographer.parents('.form-group').addClass('has-warning required');
     } else if (currentCopyright === 'wire' || currentCopyright === 'third-party') {
-        $photographer.parents('.form-group').slideDown();
+        $photographer.parents('.form-group').removeClass('required').slideDown();
         $source.parents('.form-group').slideDown();
-        $source.parents('.form-group').addClass('has-warning');
+        $source.parents('.form-group').addClass('has-warning required');
     } else {
         credit = '';
         $photographer.parents('.form-group').slideUp();
-        $source.parents('.form-group').slideUp();
+        $source.parents('.form-group')
+            .slideUp()
+            .parents('.form-group').removeClass('has-warning required');
     }
 
     renderCanvas();
