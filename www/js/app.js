@@ -360,7 +360,7 @@ var onCopyrightChange = function() {
     $source.parents('.form-group').removeClass('has-warning');
 
     if (currentCopyright === 'npr') {
-        $photographer.parents('.form-group').slideDown();
+        $photographer.parents('.form-group').removeClass('required').slideDown();
         $source.parents('.form-group').slideUp();
     } else if (currentCopyright === 'freelance') {
         $photographer.parents('.form-group').slideDown();
