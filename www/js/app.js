@@ -1,5 +1,6 @@
 // DOM elements
 var $source;
+var $photographer;
 var $save;
 var $textColor;
 var $logo;
@@ -9,6 +10,7 @@ var $imageLoader;
 var $canvas;
 var canvas;
 var $qualityQuestions;
+var $copyrightHolder;
 
 // state
 var scaledImageHeight;
@@ -31,6 +33,9 @@ var currentCrop = 'original';
 var currentLogo = 'npr';
 var currentLogoColor = 'white';
 var currentTextColor = 'white';
+var currentCopyright;
+var credit = 'Belal Khan/Flickr'
+
 
 // JS objects
 var ctx;
@@ -40,6 +45,7 @@ var logo = new Image();
 
 var onDocumentLoad = function(e) {
     $source = $('#source');
+    $photographer = $('#photographer');
     $canvas = $('#imageCanvas');
     canvas = $canvas[0];
     $imageLoader = $('#imageLoader');
@@ -50,11 +56,13 @@ var onDocumentLoad = function(e) {
     $crop = $('input[name="crop"]');
     $logoColor = $('input[name="logoColor"]');
     $qualityQuestions = $('.quality-question');
+    $copyrightHolder = $('.copyright-holder');
 
     img.src = 'assets/test-kitten.jpg';
     img.onload = renderCanvas;
     logo.onload = renderCanvas;
 
+    $photographer.on('keyup', renderCanvas);
     $source.on('keyup', renderCanvas);
     $imageLoader.on('change', handleImage);
     $save.on('click', onSaveClick);
@@ -64,6 +72,8 @@ var onDocumentLoad = function(e) {
     $crop.on('change', onCropChange);
     $canvas.on('mousedown', onDrag);
     // $qualityQuestions.on('change', onCheckboxChange);
+    $copyrightHolder.on('change', onCopyrightChange);
+
 
     $("body").on("contextmenu", "canvas", function(e) {
         return false;
@@ -145,11 +155,62 @@ var renderCanvas = function() {
         ctx.shadowBlur = 10;
     }
 
+    if (currentCopyright) {
+        credit = buildCreditString();
+    }
+
     ctx.fillText(
-        $source.val() === '' ? 'Belal Khan/Flickr': $source.val(),
+        credit,
         elementPadding,
         canvas.height - elementPadding
     );
+
+    validateForm();
+}
+
+var buildCreditString = function() {
+    var creditString;
+
+    if ($copyrightHolder.val() === 'npr') {
+        if ($photographer.val() === '') {
+            creditString = 'NPR';
+        } else {
+            creditString = $photographer.val() + '/NPR';
+        }
+    } else if ($copyrightHolder.val() === 'freelance') {
+        creditString = $photographer.val() + ' for NPR';
+        if ($photographer.val() !== '') {
+            $photographer.parents('.form-group').removeClass('has-warning');
+        } else {
+            $photographer.parents('.form-group').addClass('has-warning');
+        }
+    } else {
+        if ($photographer.val() !== '') {
+            creditString = $photographer.val() + '/' + $source.val();
+        } else {
+            creditString = $source.val();
+        }
+
+        if ($source.val() !== '') {
+            $source.parents('.form-group').removeClass('has-warning');
+        } else {
+            $source.parents('.form-group').addClass('has-warning');
+        }
+    }
+
+    return creditString;
+}
+
+var validateForm = function() {
+    if ($('.has-warning').length === 0 && currentCopyright) {
+        $save.removeAttr('disabled');
+        $("body").off("contextmenu", "canvas");
+    } else {
+        $save.attr('disabled', '');
+        $("body").on("contextmenu", "canvas", function(e) {
+            return false;
+        });
+    }
 }
 
 /*
@@ -298,16 +359,30 @@ var onCropChange = function() {
 //             checkedCount++;
 //         }
 //     }
-
-//     if (checkedCount === $qualityQuestions.length) {
-//         $save.removeAttr('disabled');
-//         $("body").off("contextmenu", "canvas");
-//     } else {
-//         $save.attr('disabled', '');
-//         $("body").on("contextmenu", "canvas", function(e) {
-//             return false;
-//         });
-//     }
 // }
+
+var onCopyrightChange = function() {
+    currentCopyright = $copyrightHolder.val();
+    $photographer.parents('.form-group').removeClass('has-warning');
+    $source.parents('.form-group').removeClass('has-warning');
+
+    if (currentCopyright === 'npr') {
+        $photographer.removeAttr('disabled');
+        $source.attr('disabled', '')
+    } else if (currentCopyright === 'freelance') {
+        $photographer.removeAttr('disabled');
+        $source.attr('disabled', '')
+        $photographer.parents('.form-group').addClass('has-warning');
+    } else if (currentCopyright === 'wire' || currentCopyright === 'third-party') {
+        $photographer.removeAttr('disabled');
+        $source.removeAttr('disabled');
+        $source.parents('.form-group').addClass('has-warning');
+    } else {
+        $photographer.attr('disabled', '');
+        $source.attr('disabled', '')
+    }
+
+    renderCanvas();
+}
 
 $(onDocumentLoad);
