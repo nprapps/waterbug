@@ -289,25 +289,25 @@ var onCropChange = function() {
     renderCanvas();
 }
 
-var onCheckboxChange = function() {
-    console.log('fire');
-    var checkedCount = 0;
+// var onCheckboxChange = function() {
+//     console.log('fire');
+//     var checkedCount = 0;
 
-    for (var i = 0; i < $qualityQuestions.length; i++) {
-        if ($qualityQuestions.eq(i).is(':checked')) {
-            checkedCount++;
-        }
-    }
+//     for (var i = 0; i < $qualityQuestions.length; i++) {
+//         if ($qualityQuestions.eq(i).is(':checked')) {
+//             checkedCount++;
+//         }
+//     }
 
-    if (checkedCount === $qualityQuestions.length) {
-        $save.removeAttr('disabled');
-        $("body").off("contextmenu", "canvas");
-    } else {
-        $save.attr('disabled', '');
-        $("body").on("contextmenu", "canvas", function(e) {
-            return false;
-        });
-    }
-}
+//     if (checkedCount === $qualityQuestions.length) {
+//         $save.removeAttr('disabled');
+//         $("body").off("contextmenu", "canvas");
+//     } else {
+//         $save.attr('disabled', '');
+//         $("body").on("contextmenu", "canvas", function(e) {
+//             return false;
+//         });
+//     }
+// }
 
 $(onDocumentLoad);

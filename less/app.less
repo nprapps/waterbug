@@ -181,19 +181,25 @@ h6.check-header {
 }
 
 .wrapper {
-    display: table;
-    width: 100%;
+    position: absolute;
+    top: 87px;
+    right: 0;
+    bottom: 0;
+    left: 0;
     padding: @grid-gutter-width;
-}
-
-.editor,
-.canvas-wrapper {
-    display: table-cell;
-    vertical-align: top;
+    overflow: hidden;
 }
 
 .editor {
+    position: absolute;
+    right: @grid-gutter-width;
+    top: 0;
+    bottom: 0;
+    width: calc(~"(100%) - (700px -)");
+    width: -webkit-calc(~"(100%) - (700px)");
+    padding-top: 30px;
     padding-left: @grid-gutter-width;
+    overflow: scroll;
 }
 
 input[type="file"] {
@@ -211,11 +217,15 @@ input[type="file"] {
     }
 }
 
-label {
+.control-label {
     font-family: @font-family-condensed;
     font-size: @font-size-small;
     text-transform: uppercase;
     letter-spacing: 0.05rem;
+}
+
+.btn-group {
+    -webkit-font-smoothing: antialiased;
 }
 
 .radio-inline {

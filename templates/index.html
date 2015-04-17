@@ -30,65 +30,85 @@
                     <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
                 </div>
             </div>
+
             <div class="form-group">
-                <label class="control-label">Credit</label>
-                <input type="text" class="form-control" id="source" name="source">
+                <h6 class="control-label">Copyright Holder</h6>
+
+                <select class="form-control">
+                  <option></option>
+                  <option>NPR</option>
+                  <option>Freelance</option>
+                  <option>Wire</option>
+                  <option>Third-Party/Courtesy</option>
+                </select>
             </div>
+
             <div class="form-group">
-                <label class="control-label">Logo</label>
-                <div class="radios ">
-                    <label class="radio-inline">
-                        <input type="radio" name="logo" id="npr" value="npr" checked>
-                        NPR
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="logo" id="music" value="music">
-                        NPR Music
-                    </label>
+                <label class="control-label">Photographer</label>
+                <input type="text" class="form-control" id="photographer" name="photographer" disabled>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Source</label>
+                <input type="text" class="form-control" id="source" name="source" disabled>
+            </div>
+
+            <div class="form-group">
+                <h6 class="control-label">Logo</h6>
+
+                <div class="btn-group btn-group-sm" data-toggle="buttons">
+                  <label class="btn btn-primary active">
+                    <input type="radio" name="logo" id="npr" value="npr" checked>
+                    NPR
+                  </label>
+                  <label class="btn btn-primary">
+                    <input type="radio" name="logo" id="music" value="music">
+                    NPR Music
+                  </label>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label">Text Color</label>
-                <div class="radios ">
-                    <label class="radio-inline">
-                        <input type="radio" name="textColor" id="whiteText" value="white" checked>
-                        White
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="textColor" id="blackText" value="black">
-                        Black
-                    </label>
+                <h6 class="control-label">Text Color</h6>
+                <div class="btn-group btn-group-sm" data-toggle="buttons">
+                  <label class="btn btn-primary active">
+                    <input type="radio" name="textColor" id="whiteText" value="white" checked>
+                    White
+                  </label>
+                  <label class="btn btn-primary">
+                    <input type="radio" name="textColor" id="blackText" value="black">
+                    Black
+                  </label>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label">Logo Color</label>
-                <div class="radios ">
-                    <label class="radio-inline">
-                        <input type="radio" name="logoColor" id="whiteLogo" value="white" checked>
-                        White
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="logoColor" id="blackLogo" value="black">
-                        Black
-                    </label>
+                <h6 class="control-label">Logo Color</h6>
+                <div class="btn-group btn-group-sm" data-toggle="buttons">
+                  <label class="btn btn-primary active">
+                    <input type="radio" name="logoColor" id="whiteLogo" value="white" checked>
+                    White
+                  </label>
+                  <label class="btn btn-primary">
+                    <input type="radio" name="logoColor" id="blackLogo" value="black">
+                    Black
+                  </label>
                 </div>
             </div>
             <div class="form-group">
-                <label class="control-label">Crop</label>
-                <div class="radios ">
-                    <label class="radio-inline">
-                        <input type="radio" name="crop" id="original" value="original" checked>
-                        Original Size
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="crop" id="twitter" value="twitter">
-                        16x9 (Twitter)
-                    </label>
+                <h6 class="control-label">Crop</h6>
+                <div class="btn-group btn-group-sm" data-toggle="buttons">
+                  <label class="btn btn-primary active">
+                    <input type="radio" name="crop" id="original" value="original" checked>
+                    Original
+                  </label>
+                  <label class="btn btn-primary">
+                    <input type="radio" name="crop" id="twitter" value="twitter">
+                    16x9 <i class="fa fa-twitter"></i>
+                  </label>
                 </div>
             </div>
             <div class="form-group">
                 <h6 class="check-header">Sharing Guidelines</h6>
-                <div class="checkbox-wrapper">
+<!--                 <div class="checkbox-wrapper">
                     <label>
                         <input class="quality-question" type="checkbox"> Are you allowed to use this photo?
                     </label>
@@ -102,7 +122,7 @@
                     <label>
                         <input class="quality-question" type="checkbox"> Are the source and logo readable?
                     </label>
-                </div>
+                </div> -->
             </div>
 
             <div class="form-group">
