@@ -60,7 +60,7 @@ var onDocumentLoad = function(e) {
     $copyrightHolder = $('.copyright-holder');
     $dragHelp = $('.drag-help');
 
-    img.src = 'assets/test-kitten.jpg';
+    img.src = APP_CONFIG.DEFAULT_IMAGE;
     img.onload = renderCanvas;
     logo.onload = renderCanvas;
 
