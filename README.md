@@ -26,7 +26,7 @@ Watermarker
 What is this?
 -------------
 
-**TKTK: Describe $NEW_PROJECT_SLUG here.**
+Watermarker puts a watermarked logo and appropriate credit line on top of a phtoo for tweeting purposes.
 
 Assumptions
 -----------
