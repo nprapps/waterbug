@@ -167,14 +167,6 @@ header {
 // Content
 // -------------------------
 
-h6.check-header {
-    font-family: @font-family-condensed;
-    font-size: @font-size-large;
-    text-transform: uppercase;
-    letter-spacing: 0.05rem;
-    margin: 30px 0 10px;
-}
-
 .btn-primary:disabled {
     pointer-events: auto;
 }
@@ -214,7 +206,8 @@ input[type="file"] {
     }
 }
 
-.control-label {
+.control-label,
+.check-header {
     font-family: @font-family-condensed;
     font-weight: normal;
     font-size: @font-size-small;
@@ -264,7 +257,11 @@ input[type="file"] {
 
 .guidelines {
     padding-left: 18px;
-    font-size: @font-size-small;
+    font-size: 14px;
+}
+
+.guidelines li {
+    margin-bottom: @line-height-computed / 4;
 }
 
 .sample-credit {
