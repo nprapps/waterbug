@@ -1,4 +1,4 @@
-Watermarker
+Waterbug
 ========================
 
 * [What is this?](#what-is-this)
@@ -26,7 +26,7 @@ Watermarker
 What is this?
 -------------
 
-Watermarker puts a watermarked logo and appropriate credit line on top of a phtoo for tweeting purposes.
+Waterbug puts a watermarked logo and appropriate credit line on top of a phtoo for tweeting purposes.
 
 Assumptions
 -----------
