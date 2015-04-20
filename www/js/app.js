@@ -32,7 +32,7 @@ var logoDimensions = {
 var elementPadding = 40;
 var image;
 var imageFilename = 'image';
-var currentCrop = 'original';
+var currentCrop = 'twitter';
 var currentLogo = 'npr';
 var currentLogoColor = 'white';
 var currentTextColor = 'white';

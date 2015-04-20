@@ -17,7 +17,7 @@
 <div class="wrapper">
     <div class="canvas-wrapper">
         <div class="canvas-cell">
-            <canvas id="imageCanvas"></canvas>
+            <canvas id="imageCanvas" class="is-draggable"></canvas>
             <p class="drag-help">Click and drag the image to adjust the crop.</p>
         </div>
     </div>
@@ -59,14 +59,15 @@
                 <div class="form-group col-lg-6">
                     <h6 class="control-label">Crop</h6>
                     <div class="btn-group btn-group-justified btn-group-sm" data-toggle="buttons">
-                      <label class="btn btn-primary active">
-                        <input type="radio" name="crop" id="original" value="original" checked>
-                        Original
-                      </label>
-                      <label class="btn btn-primary">
-                        <input type="radio" name="crop" id="twitter" value="twitter">
-                        16x9 <i class="fa fa-twitter"></i>
-                      </label>
+                        <label class="btn btn-primary active">
+                            <input type="radio" name="crop" id="twitter" value="twitter" checked>
+                            16x9 <i class="fa fa-twitter"></i>
+                        </label>
+                        <label class="btn btn-primary">
+                          <input type="radio" name="crop" id="original" value="original">
+                          Original
+                        </label>
+
                     </div>
                 </div>
 
