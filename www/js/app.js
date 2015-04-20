@@ -61,6 +61,7 @@ var onDocumentLoad = function(e) {
 
     img.src = APP_CONFIG.DEFAULT_IMAGE;
     img.onload = renderCanvas;
+    logo.src = 'assets/logo-' + currentLogo + '-' + currentLogoColor + '.png';
     logo.onload = renderCanvas;
 
     $photographer.on('keyup', renderCanvas);
@@ -78,7 +79,6 @@ var onDocumentLoad = function(e) {
         return false;
     });
 
-    loadLogo();
     renderCanvas();
 }
 
