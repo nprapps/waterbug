@@ -271,7 +271,7 @@ var handleImage = function(e) {
 * Load the logo based on radio buttons
 */
 var loadLogo = function() {
-    logo.src = 'assets/logo-' + currentLogo + '-' + currentLogoColor + '.svg';
+    logo.src = 'assets/logo-' + currentLogo + '-' + currentLogoColor + '.png';
 }
 
 /*
