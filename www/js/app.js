@@ -140,7 +140,7 @@ var renderCanvas = function() {
     }
     ctx.drawImage(
         logo,
-        canvas.width - (logoDimensions[currentLogo]['w'] + elementPadding),
+        elementPadding,
         currentLogo === 'npr'? elementPadding : elementPadding - 15,
         logoDimensions[currentLogo]['w'],
         logoDimensions[currentLogo]['h']
@@ -166,9 +166,10 @@ var renderCanvas = function() {
         credit = buildCreditString();
     }
 
+    var creditWidth = ctx.measureText(credit);
     ctx.fillText(
         credit,
-        elementPadding,
+        canvas.width - (creditWidth.width + elementPadding),
         canvas.height - elementPadding
     );
 
