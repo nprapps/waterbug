@@ -27,7 +27,6 @@ var logoDimensions = {
         w: 305,
         h: 80
     }
-
 };
 var elementPadding = 40;
 var image;
@@ -65,6 +64,7 @@ var onDocumentLoad = function(e) {
 
     img.src = APP_CONFIG.DEFAULT_IMAGE;
     img.onload = renderCanvas;
+    logo.src = 'assets/logo-' + currentLogo + '-' + currentLogoColor + '.png';
     logo.onload = renderCanvas;
 
     $photographer.on('keyup', renderCanvas);
@@ -76,15 +76,12 @@ var onDocumentLoad = function(e) {
     $logoColor.on('change', onLogoColorChange);
     $crop.on('change', onCropChange);
     $canvas.on('mousedown', onDrag);
-    // $qualityQuestions.on('change', onCheckboxChange);
     $copyrightHolder.on('change', onCopyrightChange);
-
 
     $("body").on("contextmenu", "canvas", function(e) {
         return false;
     });
 
-    loadLogo();
     renderCanvas();
 }
 
@@ -173,6 +170,9 @@ var renderCanvas = function() {
     validateForm();
 }
 
+/*
+* Build the proper format for the credit based on current copyright
+*/
 var buildCreditString = function() {
     var creditString;
 
@@ -206,6 +206,11 @@ var buildCreditString = function() {
     return creditString;
 }
 
+
+/*
+* Check to see if any required fields have not been
+* filled out before enabling saving
+*/
 var validateForm = function() {
     if ($('.has-warning').length === 0 && currentCopyright) {
         $save.removeAttr('disabled');
@@ -358,6 +363,9 @@ var onCropChange = function() {
     renderCanvas();
 }
 
+/*
+* Show the appropriate fields based on the chosen copyright
+*/
 var onCopyrightChange = function() {
     currentCopyright = $copyrightHolder.val();
     $photographer.parents('.form-group').removeClass('has-warning');
