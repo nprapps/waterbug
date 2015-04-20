@@ -175,19 +175,32 @@ var renderCanvas = function() {
 */
 var buildCreditString = function() {
     var creditString;
+    var val = $copyrightHolder.val();
 
-    if ($copyrightHolder.val() === 'npr') {
+    if (val === 'npr') {
         if ($photographer.val() === '') {
             creditString = 'NPR';
         } else {
             creditString = $photographer.val() + '/NPR';
         }
-    } else if ($copyrightHolder.val() === 'freelance') {
+    } else if (val === 'freelance') {
         creditString = $photographer.val() + ' for NPR';
         if ($photographer.val() !== '') {
             $photographer.parents('.form-group').removeClass('has-warning');
         } else {
             $photographer.parents('.form-group').addClass('has-warning');
+        }
+    } else if (val === 'ap') {
+        if ($photographer.val() !== '') {
+            creditString = $photographer.val() + '/AP';
+        } else {
+            creditString = 'AP';
+        }
+    } else if (val === 'getty') {
+        if ($photographer.val() !== '') {
+            creditString = $photographer.val() + '/Getty';
+        } else {
+            creditString = 'Getty';
         }
     } else {
         if ($photographer.val() !== '') {
@@ -378,7 +391,13 @@ var onCopyrightChange = function() {
         $photographer.parents('.form-group').slideDown();
         $source.parents('.form-group').slideUp();
         $photographer.parents('.form-group').addClass('has-warning required');
-    } else if (currentCopyright === 'wire' || currentCopyright === 'third-party') {
+    } else if (currentCopyright === 'ap' || currentCopyright === 'getty') {
+        $photographer.parents('.form-group').removeClass('required').slideDown();
+        $source.parents('.form-group')
+            .slideUp()
+            .removeClass('has-warning required');
+
+    } else if (currentCopyright === 'third-party') {
         $photographer.parents('.form-group').removeClass('required').slideDown();
         $source.parents('.form-group').slideDown();
         $source.parents('.form-group').addClass('has-warning required');
