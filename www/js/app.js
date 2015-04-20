@@ -12,6 +12,7 @@ var canvas;
 var $qualityQuestions;
 var $copyrightHolder;
 var $dragHelp;
+var $filename;
 
 // state
 var scaledImageHeight;
@@ -29,7 +30,8 @@ var logoDimensions = {
 
 };
 var elementPadding = 40;
-var imageFilename;
+var image;
+var imageFilename = 'image';
 var currentCrop = 'original';
 var currentLogo = 'npr';
 var currentLogoColor = 'white';
@@ -59,6 +61,7 @@ var onDocumentLoad = function(e) {
     $qualityQuestions = $('.quality-question');
     $copyrightHolder = $('.copyright-holder');
     $dragHelp = $('.drag-help');
+    $filename = $('.fileinput-filename');
 
     img.src = APP_CONFIG.DEFAULT_IMAGE;
     img.onload = renderCanvas;
@@ -261,8 +264,9 @@ var onDrag = function(e) {
 var handleImage = function(e) {
     var reader = new FileReader();
     reader.onload = function(e){
-        imageFilename = e.target.result
-        img.src = imageFilename
+        image = e.target.result;
+        imageFilename = $('.fileinput-filename').text().split('.')[0];
+        img.src = image;
     }
     reader.readAsDataURL(e.target.files[0]);
 }
@@ -285,7 +289,7 @@ var onSaveClick = function(e) {
         e;
 
     /// the key here is to set the download attribute of the a tag
-    link.download = 'download.png';
+    link.download =  'twitterbug-' + imageFilename + '.png';
 
     /// convert canvas content to data-uri for link. When download
     /// attribute is set the content pointed to by link will be

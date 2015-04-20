@@ -19,10 +19,10 @@ NAMES
 """
 # Project name to be used in urls
 # Use dashes, not underscores!
-PROJECT_SLUG = 'waterbug'
+PROJECT_SLUG = 'twitterbug'
 
 # Project name to be used in file paths
-PROJECT_FILENAME = 'waterbug'
+PROJECT_FILENAME = 'twitterbug'
 
 # The name of the repository containing the source
 REPOSITORY_NAME = 'waterbug'
