@@ -19,12 +19,12 @@ var fixedWidth = 1000;
 var dy = 0;
 var logoDimensions = {
     'npr': {
-        w: 150,
-        h: 52
+        w: 148,
+        h: 49
     },
     'music': {
         w: 305,
-        h: 81
+        h: 80
     }
 
 };
