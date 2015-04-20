@@ -13,6 +13,7 @@ var $qualityQuestions;
 var $copyrightHolder;
 var $dragHelp;
 var $filename;
+var $customFilename;
 
 // state
 var scaledImageHeight;
@@ -61,6 +62,7 @@ var onDocumentLoad = function(e) {
     $copyrightHolder = $('.copyright-holder');
     $dragHelp = $('.drag-help');
     $filename = $('.fileinput-filename');
+    $customFilename = $('.custom-filename');
 
     img.src = APP_CONFIG.DEFAULT_IMAGE;
     img.onload = renderCanvas;
@@ -77,6 +79,9 @@ var onDocumentLoad = function(e) {
     $crop.on('change', onCropChange);
     $canvas.on('mousedown', onDrag);
     $copyrightHolder.on('change', onCopyrightChange);
+    $customFilename.on('click', function(e) {
+        e.stopPropagation();
+    })
 
     $("body").on("contextmenu", "canvas", function(e) {
         return false;
@@ -285,6 +290,7 @@ var handleImage = function(e) {
         image = e.target.result;
         imageFilename = $('.fileinput-filename').text().split('.')[0];
         img.src = image;
+        $customFilename.text(imageFilename);
     }
     reader.readAsDataURL(e.target.files[0]);
 }
@@ -306,7 +312,11 @@ var onSaveClick = function(e) {
     var link = document.createElement('a'),
         e;
 
+
     /// the key here is to set the download attribute of the a tag
+    if ($customFilename.text()) {
+        imageFilename = $customFilename.text();
+    }
     link.download =  'twitterbug-' + imageFilename + '.png';
 
     /// convert canvas content to data-uri for link. When download

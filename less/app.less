@@ -350,7 +350,7 @@ input[type="file"] {
     display: inline;
 }
 
-.fileinput-filename {
+.fileinput-filename, .custom-filename {
      display: inline-block;
      overflow: hidden;
      vertical-align: middle;
@@ -361,7 +361,18 @@ input[type="file"] {
      padding-left: 30px;
      white-space: nowrap;
      text-overflow: ellipsis;
+     top: 0;
+     line-height: 36px;
 }
+
+.fileinput-exists .fileinput-filename {
+    display: none;
+}
+
+.fileinput-new .custom-filename {
+    display: none;
+}
+
 .form-control .fileinput-filename {
   vertical-align: bottom;
 }
