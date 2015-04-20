@@ -21,12 +21,12 @@ var fixedWidth = 1000;
 var dy = 0;
 var logoDimensions = {
     'npr': {
-        w: 148,
-        h: 49
+        w: 150,
+        h: 51
     },
     'music': {
-        w: 305,
-        h: 80
+        w: 306,
+        h: 81
     }
 };
 var elementPadding = 40;
@@ -141,7 +141,7 @@ var renderCanvas = function() {
     ctx.drawImage(
         logo,
         elementPadding,
-        currentLogo === 'npr'? elementPadding : elementPadding - 15,
+        currentLogo === 'npr'? elementPadding : elementPadding - 14,
         logoDimensions[currentLogo]['w'],
         logoDimensions[currentLogo]['h']
     );
