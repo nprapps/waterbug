@@ -292,6 +292,7 @@ var handleImage = function(e) {
         imageFilename = $('.fileinput-filename').text().split('.')[0];
         img.src = image;
         $customFilename.text(imageFilename);
+        $customFilename.parents('.form-group').addClass('has-file');
     }
     reader.readAsDataURL(e.target.files[0]);
 }

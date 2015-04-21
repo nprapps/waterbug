@@ -349,6 +349,15 @@ input[type="file"] {
 .fileinput-new .fileinput-exists {
     display: none;
 }
+
+.control-label .help {
+    display: none;
+
+    .has-file & {
+        display: inline;
+    }
+}
+
 .fileinput-inline .fileinput-controls {
     display: inline;
 }
