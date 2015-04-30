@@ -28,11 +28,11 @@ What is this?
 
 Waterbug puts a watermarked logo and appropriate credit line on top of a photo for tweeting purposes.
 
-### Sample Image
+#### Sample Image
 
 !["Sample Waterbug Image"](examples/waterbug-image.png)
 
-### Interface
+#### Interface
 
 !["Waterbug Interface!"](examples/waterbug-ui.png)
 
