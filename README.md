@@ -26,7 +26,13 @@ Waterbug
 What is this?
 -------------
 
-Waterbug puts a watermarked logo and appropriate credit line on top of a phtoo for tweeting purposes.
+Waterbug puts a watermarked logo and appropriate credit line on top of a photo for tweeting purposes.
+
+!["Sample Waterbug Image"](examples/waterbug-image.png)
+
+!["Waterbug Interface!"](examples/waterbug-ui.png)
+
+This code is open source under the MIT license. See `LICENSE` for complete details.
 
 Assumptions
 -----------
