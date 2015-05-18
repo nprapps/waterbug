@@ -15,9 +15,13 @@ var $dragHelp;
 var $filename;
 var $customFilename;
 
+// Constants
+var IS_MOBILE = Modernizr.touch && Modernizr.mq('screen and max-width(700px)');
+
 // state
 var scaledImageHeight;
 var fixedWidth = 1000;
+var previewScale = IS_MOBILE ? 0.32 : 0.64;
 var dy = 0;
 var logoDimensions = {
     'npr': {
@@ -77,7 +81,7 @@ var onDocumentLoad = function(e) {
     $logo.on('change', onLogoChange);
     $logoColor.on('change', onLogoColorChange);
     $crop.on('change', onCropChange);
-    $canvas.on('mousedown', onDrag);
+    $canvas.on('mousedown touchstart', onDrag);
     $copyrightHolder.on('change', onCopyrightChange);
     $customFilename.on('click', function(e) {
         e.stopPropagation();
@@ -247,7 +251,8 @@ var validateForm = function() {
 */
 var onDrag = function(e) {
     e.preventDefault();
-    var originY = e.clientY;
+    var originY = e.clientY||e.originalEvent.targetTouches[0].clientY;
+    originY = originY/previewScale;
     var startY = dy;
 
     if (currentCrop === 'original') {
@@ -255,8 +260,11 @@ var onDrag = function(e) {
     }
 
     function update(e) {
-        if (Math.abs(e.clientY - originY) > 1) {
-            dy = startY - (originY - e.clientY);
+        var dragY = e.clientY||e.originalEvent.targetTouches[0].clientY;
+        dragY = dragY/previewScale;
+
+        if (Math.abs(dragY - originY) > 1) {
+            dy = startY - (originY - dragY);
 
             // Prevent dragging image below upper bound
             if (dy > 0) {
@@ -275,8 +283,8 @@ var onDrag = function(e) {
     }
 
     // Perform drag sequence:
-    $(document).on('mousemove.drag', _.debounce(update, 5, true))
-        .on('mouseup.drag', function(e) {
+    $(document).on('mousemove.drag touchmove', _.debounce(update, 5, true))
+        .on('mouseup.drag touchmove', function(e) {
             $(document).off('mouseup.drag mousemove.drag');
             update(e);
         });

@@ -130,6 +130,7 @@ header {
         text-transform: uppercase;
         font-weight: normal;
         line-height: 32px;
+        font-size: @font-size-h3;
         margin: 0;
         -webkit-font-smoothing: antialiased;
 
@@ -138,6 +139,10 @@ header {
             margin-left: 11px;
             opacity: 0.7;
             text-transform: none;
+        }
+
+        @media screen and (min-width: 700px){
+            font-size: @font-size-h1;
         }
     }
 
@@ -149,7 +154,7 @@ header {
     }
 
     a.toolkit-link {
-        float: right;
+        display: block;
         line-height: 32px;
         margin-right: - @grid-gutter-width / 2;
         font-size: 16px;
@@ -159,6 +164,10 @@ header {
         &:hover {
             color: #eee;
             opacity: 0.7;
+        }
+
+        @media screen and (min-width: 700px){
+            float: right;
         }
     }
 }
@@ -172,23 +181,29 @@ header {
 }
 
 .wrapper {
-    position: absolute;
-    top: 87px;
-    right: 0;
-    bottom: 0;
-    left: 0;
     padding: @grid-gutter-width;
-    overflow: hidden;
+
+    @media screen  and (min-width: 960px){
+        position: absolute;
+        top: 87px;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        overflow: hidden;
+    }
+
 }
 
 .editor {
-    position: absolute;
-    left: 640px + @grid-gutter-width;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    padding: 30px;
-    overflow: scroll;
+    @media screen and (min-width: 960px){
+        position: absolute;
+        left: 640px + @grid-gutter-width;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        padding: 30px;
+        overflow: scroll;
+    }
 }
 
 input[type="file"] {
@@ -198,11 +213,15 @@ input[type="file"] {
 }
 
 #imageCanvas {
-    .scale(0.64);
+    .scale(0.32);
     .transform-origin(top left);
 
     &.is-draggable {
         cursor: ns-resize;
+    }
+
+    @media screen and (min-width: 700px){
+        .scale(0.64);
     }
 }
 
@@ -277,9 +296,23 @@ input[type="file"] {
 }
 
 .canvas-cell {
-    width: 640px;
+    width: 320px;
+    height: 200px;
     overflow: hidden;
     position: relative;
+    margin: 0 auto;
+
+    @media screen and (min-width: 700px){
+        width: 640px;
+        height: 400px;
+    }
+
+    @media screen and (min-width: 960px){
+        height: auto;
+    }
+
+
+
 }
 
 .drag-help {
@@ -293,7 +326,13 @@ input[type="file"] {
 }
 
 .canvas-wrapper {
-    width: 640px;
+    width: auto;
+    margin: 0 -@grid-gutter-width;
+
+    @media screen and (min-width: 960px){
+        width: 640px;
+        margin: 0;
+    }
 }
 
 // Fileinput.less
