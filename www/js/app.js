@@ -204,9 +204,9 @@ var buildCreditString = function() {
         }
     } else if (val === 'getty') {
         if ($photographer.val() !== '') {
-            creditString = $photographer.val() + '/Getty';
+            creditString = $photographer.val() + '/Getty Images';
         } else {
-            creditString = 'Getty';
+            creditString = 'Getty Images';
         }
     } else {
         if ($photographer.val() !== '') {
