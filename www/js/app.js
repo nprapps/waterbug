@@ -284,8 +284,8 @@ var onDrag = function(e) {
 
     // Perform drag sequence:
     $(document).on('mousemove.drag touchmove', _.debounce(update, 5, true))
-        .on('mouseup.drag touchmove', function(e) {
-            $(document).off('mouseup.drag mousemove.drag');
+        .on('mouseup.drag touchend', function(e) {
+            $(document).off('mouseup.drag touchmove mousemove.drag');
             update(e);
         });
 }
