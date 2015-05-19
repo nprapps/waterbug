@@ -323,11 +323,15 @@ input[type="file"] {
     letter-spacing: 0.05rem;
     font-family: @font-family-condensed;
     color: #999;
+
+    @media screen and (max-width: 699px){
+        top: 180px;
+    }
 }
 
 .canvas-wrapper {
     width: auto;
-    margin: 0 -@grid-gutter-width;
+    margin: 0 -@grid-gutter-width @line-height-computed;
 
     @media screen and (min-width: 960px){
         width: 640px;
