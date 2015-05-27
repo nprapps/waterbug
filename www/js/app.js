@@ -296,6 +296,9 @@ var onDrag = function(e) {
 var handleImage = function(e) {
     var reader = new FileReader();
     reader.onload = function(e){
+        // reset dy value
+        dy = 0;
+
         image = e.target.result;
         imageFilename = $('.fileinput-filename').text().split('.')[0];
         img.src = image;
