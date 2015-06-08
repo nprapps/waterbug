@@ -20,9 +20,11 @@ var IS_MOBILE = Modernizr.touch && Modernizr.mq('screen and max-width(700px)');
 
 // state
 var scaledImageHeight;
+var scaledImageWidth;
 var fixedWidth = 1000;
 var previewScale = IS_MOBILE ? 0.32 : 0.64;
 var dy = 0;
+var dx = 0;
 var logoDimensions = {
     'npr': {
         w: 150,
@@ -42,6 +44,7 @@ var currentLogoColor = 'white';
 var currentTextColor = 'white';
 var currentCopyright;
 var credit = 'Belal Khan/Flickr'
+var shallowImage = false;
 
 
 // JS objects
@@ -69,7 +72,7 @@ var onDocumentLoad = function(e) {
     $customFilename = $('.custom-filename');
 
     img.src = APP_CONFIG.DEFAULT_IMAGE;
-    img.onload = renderCanvas;
+    img.onload = onImageLoad;
     logo.src = 'assets/logo-' + currentLogo + '-' + currentLogoColor + '.png';
     logo.onload = renderCanvas;
 
@@ -111,6 +114,7 @@ var renderCanvas = function() {
 
     // determine height of canvas and scaled image, then draw the image
     var imageAspect = img.width / img.height;
+
     if (currentCrop === 'original') {
         canvas.height = fixedWidth / imageAspect;
         scaledImageHeight = canvas.height;
@@ -122,18 +126,38 @@ var renderCanvas = function() {
             scaledImageHeight
         );
     } else {
-        scaledImageHeight = fixedWidth / imageAspect;
-        ctx.drawImage(
-            img,
-            0,
-            0,
-            img.width,
-            img.height,
-            0,
-            dy,
-            fixedWidth,
-            scaledImageHeight
-        );
+        if (img.width / img.height > canvas.width / canvas.height) {
+            shallowImage = true;
+
+            scaledImageHeight = fixedWidth / imageAspect;
+            scaledImageWidth = canvas.height * (img.width / img.height)
+            ctx.drawImage(
+                img,
+                0,
+                0,
+                img.width,
+                img.height,
+                dx,
+                dy,
+                scaledImageWidth,
+                canvas.height
+            );
+        } else {
+            shallowImage = false;
+
+            scaledImageHeight = fixedWidth / imageAspect;
+            ctx.drawImage(
+                img,
+                0,
+                0,
+                img.width,
+                img.height,
+                dx,
+                dy,
+                fixedWidth,
+                scaledImageHeight
+            );
+        }
     }
 
     // set alpha channel, draw the logo
@@ -253,7 +277,12 @@ var onDrag = function(e) {
     e.preventDefault();
     var originY = e.clientY||e.originalEvent.targetTouches[0].clientY;
     originY = originY/previewScale;
+
+    var originX = e.clientX||e.originalEvent.targetTouches[0].clientX;
+    originX = originX/previewScale;
+
     var startY = dy;
+    var startX = dx;
 
     if (currentCrop === 'original') {
         return;
@@ -263,23 +292,48 @@ var onDrag = function(e) {
         var dragY = e.clientY||e.originalEvent.targetTouches[0].clientY;
         dragY = dragY/previewScale;
 
-        if (Math.abs(dragY - originY) > 1) {
-            dy = startY - (originY - dragY);
+        var dragX = e.clientX||e.originalEvent.targetTouches[0].clientX;
+        dragX = dragX/previewScale;
 
-            // Prevent dragging image below upper bound
-            if (dy > 0) {
-                dy = 0;
-                return;
+        if (shallowImage === false) {
+            if (Math.abs(dragY - originY) > 1) {
+                dy = startY - (originY - dragY);
+
+                // Prevent dragging image below upper bound
+                if (dy > 0) {
+                    dy = 0;
+                    return;
+                }
+
+                // Prevent dragging image above lower bound
+                if (dy < canvas.height - scaledImageHeight) {
+                    dy = canvas.height - scaledImageHeight;
+                    return;
+                }
+
+                renderCanvas();
             }
+        } else {
+            if (Math.abs(dragX - originX) > 1) {
+                dx = startX - (originX - dragX);
 
-            // Prevent dragging image above lower bound
-            if (dy < canvas.height - scaledImageHeight) {
-                dy = canvas.height - scaledImageHeight;
-                return;
+                // Prevent dragging image below left bound
+                if (dx > 0) {
+                    dx = 0;
+                    return;
+                }
+
+                // Prevent dragging image above right bound
+                if (dx < canvas.width - scaledImageWidth) {
+                    dx = canvas.width - scaledImageWidth;
+                    return;
+                }
+
+                renderCanvas();
             }
-
-            renderCanvas();
         }
+
+
     }
 
     // Perform drag sequence:
@@ -298,6 +352,7 @@ var handleImage = function(e) {
     reader.onload = function(e){
         // reset dy value
         dy = 0;
+        dx = 0;
 
         image = e.target.result;
         imageFilename = $('.fileinput-filename').text().split('.')[0];
@@ -306,6 +361,15 @@ var handleImage = function(e) {
         $customFilename.parents('.form-group').addClass('has-file');
     }
     reader.readAsDataURL(e.target.files[0]);
+}
+
+/*
+* Set dragging status based on image aspect ratio and render canvas
+*/
+var onImageLoad = function(e) {
+    renderCanvas();
+    onCropChange();
+
 }
 
 /*
@@ -386,13 +450,14 @@ var onLogoChange = function(e) {
 * Handle crop radio button clicks
 */
 var onCropChange = function() {
-    currentCrop = $(this).val();
+    currentCrop = $crop.filter(':checked').val();
 
     if (currentCrop !== 'original') {
-        $canvas.addClass('is-draggable');
+        var dragClass = shallowImage ? 'is-draggable shallow' : 'is-draggable';
+        $canvas.addClass(dragClass);
         $dragHelp.show();
     } else {
-        $canvas.removeClass('is-draggable');
+        $canvas.removeClass('is-draggable shallow');
         $dragHelp.hide();
     }
 
