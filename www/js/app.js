@@ -7,12 +7,15 @@ var $logo;
 var $crop;
 var $logoColor;
 var $imageLoader;
+var $imageLink;
+var $imageLinkButton;
 var $canvas;
 var canvas;
 var $qualityQuestions;
 var $copyrightHolder;
 var $dragHelp;
 var $filename;
+var $fileinput;
 var $customFilename;
 
 // Constants
@@ -59,6 +62,8 @@ var onDocumentLoad = function(e) {
     $canvas = $('#imageCanvas');
     canvas = $canvas[0];
     $imageLoader = $('#imageLoader');
+    $imageLink = $('#imageLink');
+    $imageLinkButton = $('#imageLinkButton');
     ctx = canvas.getContext('2d');
     $save = $('.save-btn');
     $textColor = $('input[name="textColor"]');
@@ -69,6 +74,7 @@ var onDocumentLoad = function(e) {
     $copyrightHolder = $('.copyright-holder');
     $dragHelp = $('.drag-help');
     $filename = $('.fileinput-filename');
+    $fileinput = $('.fileinput');
     $customFilename = $('.custom-filename');
 
     img.src = APP_CONFIG.DEFAULT_IMAGE;
@@ -79,6 +85,7 @@ var onDocumentLoad = function(e) {
     $photographer.on('keyup', renderCanvas);
     $source.on('keyup', renderCanvas);
     $imageLoader.on('change', handleImage);
+    $imageLinkButton.on('click', handleImageLink);
     $save.on('click', onSaveClick);
     $textColor.on('change', onTextColorChange);
     $logo.on('change', onLogoChange);
@@ -359,8 +366,38 @@ var handleImage = function(e) {
         img.src = image;
         $customFilename.text(imageFilename);
         $customFilename.parents('.form-group').addClass('has-file');
+        $imageLink.val('');
+        $imageLink.parents('.form-group').removeClass('has-file');
     }
     reader.readAsDataURL(e.target.files[0]);
+}
+
+
+/*
+* Load a remote seamus image
+*/
+var handleImageLink = function(e) {
+    // Test if image URL returns a 200
+    $.get($imageLink.val(), function(data) {
+        // reset dy value
+        dy = 0;
+        dx = 0;
+
+        $fileinput.fileinput('clear');
+        $imageLink.parents('.form-group').addClass('has-file').removeClass('has-error');
+        $imageLink.parents('.input-group').next().text('Click to edit name');
+
+        img.src = $imageLink.val();
+        img.crossOrigin = "anonymous"
+
+        var filename = $imageLink.val().split('/');
+        imageFilename = filename[filename.length - 1].split('.')[0];
+
+        $imageLink.val(imageFilename);
+    }).fail(function() {
+        $imageLink.parents('.form-group').addClass('has-error');
+        $imageLink.parents('.input-group').next().text('Not a valid image URL');
+    })
 }
 
 /*
@@ -394,6 +431,12 @@ var onSaveClick = function(e) {
     if ($customFilename.text()) {
         imageFilename = $customFilename.text();
     }
+
+    if ($imageLink.val() !== "") {
+        var filename = $imageLink.val().split('/');
+        imageFilename = filename[filename.length - 1].split('.')[0];
+    }
+
     link.download =  'twitterbug-' + imageFilename + '.png';
 
     /// convert canvas content to data-uri for link. When download

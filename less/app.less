@@ -230,7 +230,7 @@ input[type="file"] {
 }
 
 .control-label,
-.check-header {
+.form-header {
     font-family: @font-family-condensed;
     font-weight: normal;
     font-size: @font-size-small;
@@ -262,6 +262,11 @@ input[type="file"] {
 .form-group {
     .help {
         color: #aaa;
+        font-size: 13px;
+
+        .has-error& {
+            color: @brand-danger;
+        }
     }
 
     .required {
@@ -273,6 +278,23 @@ input[type="file"] {
             display: inline;
         }
     }
+}
+
+.nav-pills .disabled {
+    padding: 5px 15px 5px 0;
+}
+
+.nav-pills > li > a {
+    padding: 6px 15px 4px;
+    text-transform: none;
+    font-family: @font-family-base;
+    -webkit-font-smoothing: antialiased;
+    color: #4669ae;
+    font-size: 13px;
+}
+
+.nav-pills > li.active > a {
+    background-color: #4669ae !important;
 }
 
 .radio-inline {
@@ -375,7 +397,6 @@ input[type="file"] {
 }
 
 .fileinput {
-  margin-bottom: 9px;
   display: inline-block;
   .form-control {
     padding-top: 7px;
@@ -405,11 +426,12 @@ input[type="file"] {
     display: none;
 }
 
-.control-label .help {
-    display: none;
+.help {
+    visibility: hidden;
 
-    .has-file & {
-        display: inline;
+    .has-file &,
+    .has-error & {
+        visibility: visible;
     }
 }
 

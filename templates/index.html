@@ -23,12 +23,28 @@
     </div>
     <div class="editor">
         <form autocomplete="off">
-            <div class="form-group">
-                <label class="control-label">Image <span class="help">(Click to edit name)</span></label>
-                <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                    <div class="form-control" data-trigger="fileinput"><i class="fa fa-file fileinput-exists"></i> <span class="custom-filename" contentEditable="true"></span> <span class="fileinput-filename"></span></div>
-                    <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span><input type="file" id="imageLoader" name="imageLoader"></span>
-                    <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+            <ul class="form-header nav nav-pills">
+                <li role="presentation" class="disabled">Image</li>
+                <li role="presentation" class="active"><a href="#image-file" data-toggle="pill">File</a></li>
+                <li role="presentation"><a href="#image-url" data-toggle="pill">URL</a></li>
+            </ul>
+
+            <div class="tab-content">
+                <div class="form-group tab-pane active" id="image-file">
+                    <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                        <div class="form-control" data-trigger="fileinput"><i class="fa fa-file fileinput-exists"></i> <span class="custom-filename" contentEditable="true"></span> <span class="fileinput-filename"></span></div>
+                        <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">Select file</span><span class="fileinput-exists">Change</span><input type="file" id="imageLoader" name="imageLoader"></span>
+                        <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                    </div>
+                    <span class="help">Click to edit name</span>
+                </div>
+
+                <div class="form-group tab-pane" id="image-url">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="imageLink" name="imageLink">
+                        <span id="imageLinkButton" class="input-group-addon btn btn-default btn-file">Load Image</span>
+                    </div>
+                    <span class="help">Click to edit name</span>
                 </div>
             </div>
 
@@ -115,7 +131,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <h6 class="check-header">Sharing Guidelines</h6>
+                <h6 class="form-header">Sharing Guidelines</h6>
                 <ul class="guidelines">
                     <li>Only official NPR accounts can tweet wire images (Getty/AP)</li>
                     <li>Only tweet AP photos that are published with the story and we must include the story link</li>
