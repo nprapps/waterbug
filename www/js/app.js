@@ -20,6 +20,7 @@ var $customFilename;
 
 // Constants
 var IS_MOBILE = Modernizr.touch && Modernizr.mq('screen and max-width(700px)');
+var MIME_TYPES = ['image/jpeg', 'image/png', 'image/gif'];
 
 // state
 var scaledImageHeight;
@@ -100,6 +101,14 @@ var onDocumentLoad = function(e) {
     $("body").on("contextmenu", "canvas", function(e) {
         return false;
     });
+
+    $imageLink.keypress(function(e) {
+        if (e.keyCode == 13) {
+            handleImageLink();
+        }
+    });
+
+    // $imageLink.on('paste', handleImageLink);
 
     renderCanvas();
 }
@@ -374,17 +383,18 @@ var handleImage = function(e) {
 
 
 /*
-* Load a remote image
+* Load a remote  image
 */
 var handleImageLink = function(e) {
+    var requestStatus =
     // Test if image URL returns a 200
     $.ajax({
         url: $imageLink.val(),
         success: function(data, status, xhr) {
-            var responseType = xhr.getResponseHeader("content-type").toLowerCase();
+            var responseType = xhr.getResponseHeader('content-type').toLowerCase();
 
             // if content type is jpeg, gif or png, load the image into the canvas
-            if (responseType === 'image/jpeg'||responseType === 'image/png'||responseType === 'image/gif') {
+            if (MIME_TYPES.indexOf(responseType) >= 0) {
                 // reset dy value
                 dy = 0;
                 dx = 0;
@@ -419,9 +429,11 @@ var handleImageLink = function(e) {
 * Set dragging status based on image aspect ratio and render canvas
 */
 var onImageLoad = function(e) {
+    // firefox won't render image on first try without this  ¯\_(ツ)_/¯ 
+    img.src = img.src;
+
     renderCanvas();
     onCropChange();
-
 }
 
 /*
