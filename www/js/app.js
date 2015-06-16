@@ -374,30 +374,45 @@ var handleImage = function(e) {
 
 
 /*
-* Load a remote seamus image
+* Load a remote image
 */
 var handleImageLink = function(e) {
     // Test if image URL returns a 200
-    $.get($imageLink.val(), function(data) {
-        // reset dy value
-        dy = 0;
-        dx = 0;
+    $.ajax({
+        url: $imageLink.val(),
+        success: function(data, status, xhr) {
+            var responseType = xhr.getResponseHeader("content-type").toLowerCase();
 
-        $fileinput.fileinput('clear');
-        $imageLink.parents('.form-group').addClass('has-file').removeClass('has-error');
-        $imageLink.parents('.input-group').next().text('Click to edit name');
+            // if content type is jpeg, gif or png, load the image into the canvas
+            if (responseType === 'image/jpeg'||responseType === 'image/png'||responseType === 'image/gif') {
+                // reset dy value
+                dy = 0;
+                dx = 0;
 
-        img.src = $imageLink.val();
-        img.crossOrigin = "anonymous"
+                $fileinput.fileinput('clear');
+                $imageLink.parents('.form-group').addClass('has-file').removeClass('has-error');
+                $imageLink.parents('.input-group').next().text('Click to edit name');
 
-        var filename = $imageLink.val().split('/');
-        imageFilename = filename[filename.length - 1].split('.')[0];
+                img.src = $imageLink.val();
+                img.crossOrigin = "anonymous"
 
-        $imageLink.val(imageFilename);
-    }).fail(function() {
-        $imageLink.parents('.form-group').addClass('has-error');
-        $imageLink.parents('.input-group').next().text('Not a valid image URL');
-    })
+                var filename = $imageLink.val().split('/');
+                imageFilename = filename[filename.length - 1].split('.')[0];
+
+                $imageLink.val(imageFilename);
+
+            // otherwise, display an error
+            } else {
+                $imageLink.parents('.form-group').addClass('has-error');
+                $imageLink.parents('.input-group').next().text('Not a valid image URL');
+                return;
+            }
+        },
+        error: function(data) {
+            $imageLink.parents('.form-group').addClass('has-error');
+            $imageLink.parents('.input-group').next().text('Not a valid image URL');
+        }
+    });
 }
 
 /*
