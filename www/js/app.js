@@ -405,8 +405,6 @@ var handleImageLink = function(e) {
 
                 img.src = $imageLink.val();
                 img.crossOrigin = "anonymous"
-                // firefox won't render image on first try without this  ¯\_(ツ)_/¯
-                img.src = img.src;
 
                 var filename = $imageLink.val().split('/');
                 imageFilename = filename[filename.length - 1].split('.')[0];
@@ -431,6 +429,9 @@ var handleImageLink = function(e) {
 * Set dragging status based on image aspect ratio and render canvas
 */
 var onImageLoad = function(e) {
+    // firefox won't render image on first try without this  ¯\_(ツ)_/¯ 
+    img.src = img.src;
+
     renderCanvas();
     onCropChange();
 }
