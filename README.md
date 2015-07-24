@@ -1,6 +1,8 @@
 Waterbug
 ========================
 
+__NOTE:__ The Waterbug repository has been deprecated for our suite of social tools, [Lunchbox](http://github.com/nprapps/lunchbox). You can find the most recent version of Waterbug over there.
+
 * [What is this?](#what-is-this)
 * [Assumptions](#assumptions)
 * [What's in here?](#whats-in-here)
